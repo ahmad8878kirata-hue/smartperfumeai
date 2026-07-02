@@ -1,32 +1,56 @@
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import { useSurvey } from '../context/SurveyContext'
+import { useCart } from '../context/CartContext'
+
+const product = {
+  id: 'PF-005',
+  name: "L'Essence C\u00e9leste",
+  brand: 'SmartPerfume AI',
+  price: 145.00,
+}
 
 export default function Recommendation() {
+  const navigate = useNavigate()
+  const { surveyDone } = useSurvey()
+  const { items, addItem, removeItem } = useCart()
+  const [cartMsg, setCartMsg] = useState(null)
+
+  const inCart = items.some((i) => i.id === product.id)
+
+  useEffect(() => {
+    if (!surveyDone) {
+      navigate('/home', { replace: true })
+    }
+  }, [surveyDone, navigate])
+
+  const handleCartAction = () => {
+    if (inCart) {
+      removeItem(product.id)
+      setCartMsg('Removed from your collection.')
+    } else {
+      addItem(product)
+      setCartMsg('Added to your collection!')
+    }
+    setTimeout(() => setCartMsg(null), 2500)
+  }
+
+  if (!surveyDone) return null
+
   return (
     <div className="bg-background text-on-surface selection:bg-secondary-fixed/30 font-body-md">
-      <nav className="w-full top-0 sticky z-50 bg-surface-container/60 backdrop-blur-3xl border-b border-on-surface/10">
-        <div className="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
-          <div className="font-headline-md text-headline-md text-on-surface tracking-tighter">SmartPerfume AI</div>
-          <div className="hidden md:flex items-center space-x-12">
-            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300 cursor-pointer" href="#">Discover</a>
-            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300 cursor-pointer" href="#">Collection</a>
-            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300 cursor-pointer" href="#">Journal</a>
-            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300 cursor-pointer" href="#">About</a>
-          </div>
-          <div className="flex items-center space-x-6">
-            <div className="hidden md:block">
-              <button className="px-6 py-2 bg-secondary text-on-secondary-fixed font-label-caps text-label-caps rounded-full cursor-pointer transition-all active:scale-95 hover:opacity-90">
-                Create Scent
-              </button>
-            </div>
-            <div className="flex space-x-4">
-              <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-secondary-fixed transition-colors">account_circle</span>
-              <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-secondary-fixed transition-colors">shopping_bag</span>
-            </div>
-          </div>
+      {cartMsg && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[60] px-6 py-3 rounded-lg bg-secondary-container/20 text-secondary-fixed border border-secondary-fixed/30 font-label-caps text-label-caps tracking-wider uppercase shadow-2xl">
+          {cartMsg}
         </div>
-      </nav>
+      )}
 
-      <main className="relative min-h-screen">
+      <main className="min-h-screen">
+        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[120px] floating-element" />
+          <div className="absolute bottom-[-5%] left-[-5%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] floating-element" style={{ animationDelay: '-5s' }} />
+        </div>
+
         <section className="relative z-10 pt-20 pb-12 px-margin-desktop text-center max-w-container-max mx-auto">
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 glass-card rounded-full mb-8">
             <span className="material-symbols-outlined text-secondary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
@@ -87,9 +111,16 @@ export default function Recommendation() {
                 </div>
               </div>
               <div className="mt-12 space-y-4">
-                <button className="w-full py-5 bg-secondary text-on-secondary-fixed font-label-caps text-label-caps rounded-xl flex items-center justify-center space-x-3 transition-all hover:shadow-[0_0_30px_rgba(233,195,73,0.3)] active:scale-[0.98]">
-                  <span className="material-symbols-outlined">shopping_bag</span>
-                  <span>Add to Cart</span>
+                <button
+                  onClick={handleCartAction}
+                  className={`w-full py-5 font-label-caps text-label-caps rounded-xl flex items-center justify-center space-x-3 transition-all active:scale-[0.98] ${
+                    inCart
+                      ? 'bg-error-container/20 text-error border border-error/30 hover:bg-error-container/30'
+                      : 'bg-secondary text-on-secondary-fixed hover:shadow-[0_0_30px_rgba(233,195,73,0.3)]'
+                  }`}
+                >
+                  <span className="material-symbols-outlined">{inCart ? 'delete' : 'shopping_bag'}</span>
+                  <span>{inCart ? 'Remove from Cart' : 'Add to Cart'}</span>
                 </button>
                 <div className="flex justify-center">
                   <Link to="/quiz" className="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-colors flex items-center space-x-2 py-2">
@@ -119,26 +150,6 @@ export default function Recommendation() {
           </div>
         </section>
       </main>
-
-      <footer className="w-full py-12 bg-surface-dim border-t border-outline-variant/20">
-        <div className="flex flex-col items-center justify-center space-y-base px-margin-desktop max-w-container-max mx-auto">
-          <div className="font-headline-md text-headline-md text-on-surface mb-4">SmartPerfume AI</div>
-          <nav className="flex flex-wrap justify-center gap-8 mb-8">
-            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Privacy Policy</a>
-            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Terms of Service</a>
-            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Scent Science</a>
-            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Contact</a>
-          </nav>
-          <div className="font-body-md text-body-md text-on-surface-variant opacity-60 text-center">
-            &copy; 2024 SmartPerfume AI. The Art of Computational Olfaction.
-          </div>
-          <div className="flex space-x-6 pt-6">
-            <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-secondary transition-colors">brand_awareness</span>
-            <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-secondary transition-colors">public</span>
-            <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-secondary transition-colors">share</span>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

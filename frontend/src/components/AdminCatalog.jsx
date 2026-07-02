@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
 const initialFragrances = [
-  { id: '#PF-001', name: 'Midnight Oud', brand: "L'Artiste Digital", ingredients: ['Oud', 'Saffron', 'Leather'], price: '€185.00' },
-  { id: '#PF-002', name: 'Solaris Mist', brand: 'Neo-Olfactive', ingredients: ['Bergamot', 'Amber', 'Sea Salt'], price: '€140.00' },
-  { id: '#PF-003', name: 'Cipher Green', brand: 'Algorithm Scent', ingredients: ['Vetiver', 'Oakmoss', 'Green Tea'], price: '€210.00' },
-  { id: '#PF-004', name: 'Velvet Logic', brand: 'SmartPerfume AI', ingredients: ['Rose', 'Patchouli', 'Vanilla'], price: '€245.00' },
+  { id: 'PF-001', name: 'Midnight Oud', brand: "L'Artiste Digital", ingredients: ['Oud', 'Saffron', 'Leather'], price: '€185.00' },
+  { id: 'PF-002', name: 'Solaris Mist', brand: 'Neo-Olfactive', ingredients: ['Bergamot', 'Amber', 'Sea Salt'], price: '€140.00' },
+  { id: 'PF-003', name: 'Cipher Green', brand: 'Algorithm Scent', ingredients: ['Vetiver', 'Oakmoss', 'Green Tea'], price: '€210.00' },
+  { id: 'PF-004', name: 'Velvet Logic', brand: 'SmartPerfume AI', ingredients: ['Rose', 'Patchouli', 'Vanilla'], price: '€245.00' },
 ]
 
 export default function AdminCatalog() {
