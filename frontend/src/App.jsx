@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
 import { SurveyProvider } from './context/SurveyContext'
 import { CartProvider } from './context/CartContext'
 import Layout from './components/Layout'
@@ -15,8 +16,9 @@ import AdminCatalog from './components/AdminCatalog'
 
 export default function App() {
   return (
-    <SurveyProvider>
-      <CartProvider>
+    <AuthProvider>
+      <SurveyProvider>
+        <CartProvider>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
@@ -35,7 +37,8 @@ export default function App() {
 
           <Route path="/admin" element={<AdminCatalog />} />
         </Routes>
-      </CartProvider>
-    </SurveyProvider>
+        </CartProvider>
+      </SurveyProvider>
+    </AuthProvider>
   )
 }

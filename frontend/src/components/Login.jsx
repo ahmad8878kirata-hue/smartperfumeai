@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 export default function Login() {
   const navigate = useNavigate()
+  const { login } = useAuth()
   const [isRegistering, setIsRegistering] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -27,6 +29,7 @@ export default function Login() {
         return
       }
 
+      login(data.user.email, data.token)
       setMessage({ type: 'success', text: isRegistering ? 'Account created! Redirecting...' : 'Signed in! Redirecting...' })
 
       if (!isRegistering) {

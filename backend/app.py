@@ -114,41 +114,90 @@ def submit_quiz():
     })
 
 
-cart_items = []
+user_carts = {}
+
+
+def get_email_from_token():
+    auth = request.headers.get("Authorization", "")
+    if not auth.startswith("Bearer "):
+        return None
+    try:
+        payload = jwt.decode(auth[7:], app.config["SECRET_KEY"], algorithms=["HS256"])
+        return payload.get("email")
+    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
+        return None
+
+
+def require_auth(f):
+    from functools import wraps
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        email = get_email_from_token()
+        if not email:
+            return jsonify({"error": "Unauthorized"}), 401
+        return f(email, *args, **kwargs)
+    return decorated
 
 
 @app.route("/api/cart", methods=["GET"])
-def get_cart():
-    return jsonify(cart_items)
+@require_auth
+def get_cart(email):
+    cart = user_carts.get(email, [])
+    return jsonify(cart)
 
 
 @app.route("/api/cart", methods=["POST"])
-def add_to_cart():
+@require_auth
+def add_to_cart(email):
     data = request.get_json()
     if not data or not data.get("id"):
         return jsonify({"error": "Product id is required"}), 400
-    cart_items.append({
-        "id": data["id"],
-        "name": data.get("name", ""),
-        "brand": data.get("brand", ""),
-        "price": data.get("price", 0),
-        "qty": data.get("qty", 1),
-    })
-    return jsonify({"message": "Added to cart", "cart": cart_items}), 201
+    if email not in user_carts:
+        user_carts[email] = []
+    existing = next((i for i in user_carts[email] if i["id"] == data["id"]), None)
+    if existing:
+        existing["qty"] = existing.get("qty", 1) + data.get("qty", 1)
+    else:
+        user_carts[email].append({
+            "id": data["id"],
+            "name": data.get("name", ""),
+            "brand": data.get("brand", ""),
+            "price": data.get("price", 0),
+            "qty": data.get("qty", 1),
+        })
+    return jsonify({"message": "Added to cart", "cart": user_carts[email]}), 201
 
 
 @app.route("/api/cart/<product_id>", methods=["DELETE"])
-def remove_from_cart(product_id):
-    global cart_items
-    cart_items = [i for i in cart_items if i["id"] != product_id]
-    return jsonify({"message": "Removed from cart", "cart": cart_items})
+@require_auth
+def remove_from_cart(email, product_id):
+    if email in user_carts:
+        user_carts[email] = [i for i in user_carts[email] if i["id"] != product_id]
+    return jsonify({"message": "Removed from cart", "cart": user_carts.get(email, [])})
 
 
 @app.route("/api/cart", methods=["DELETE"])
-def clear_cart():
-    global cart_items
-    cart_items = []
+@require_auth
+def clear_cart(email):
+    user_carts[email] = []
     return jsonify({"message": "Cart cleared"})
+
+
+@app.route("/api/cart/<product_id>", methods=["PATCH"])
+@require_auth
+def update_cart_item(email, product_id):
+    data = request.get_json()
+    if email not in user_carts:
+        return jsonify({"error": "Cart not found"}), 404
+    item = next((i for i in user_carts[email] if i["id"] == product_id), None)
+    if not item:
+        return jsonify({"error": "Item not found"}), 404
+    qty = data.get("qty", 1)
+    if qty <= 0:
+        user_carts[email] = [i for i in user_carts[email] if i["id"] != product_id]
+    else:
+        item["qty"] = qty
+    return jsonify({"message": "Updated", "cart": user_carts[email]})
 
 
 if __name__ == "__main__":

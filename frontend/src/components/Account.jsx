@@ -1,15 +1,16 @@
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import { useSurvey } from '../context/SurveyContext'
 import { useCart } from '../context/CartContext'
 
 export default function Account() {
   const navigate = useNavigate()
-  const { surveyDone, setSurveyDone } = useSurvey()
-  const { items, totalItems, clearCart } = useCart()
+  const { logout: authLogout } = useAuth()
+  const { surveyDone } = useSurvey()
+  const { items, totalItems } = useCart()
 
   const handleLogout = () => {
-    setSurveyDone(false)
-    clearCart()
+    authLogout()
     navigate('/login')
   }
 
