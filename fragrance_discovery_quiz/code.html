@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scent Discovery | SmartPerfume AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400..900;1,400..900&amp;family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-dim": "#0d131f",
+                "secondary-fixed": "#ffe088",
+                "outline": "#909096",
+                "error-container": "#93000a",
+                "inverse-primary": "#595e6f",
+                "secondary-container": "#af8d11",
+                "on-tertiary-container": "#7b7976",
+                "tertiary": "#c8c6c2",
+                "primary-fixed-dim": "#c1c6da",
+                "inverse-on-surface": "#2a303d",
+                "on-primary": "#2b3040",
+                "on-secondary-container": "#342800",
+                "on-primary-fixed": "#161b2a",
+                "error": "#ffb4ab",
+                "secondary": "#e9c349",
+                "surface-variant": "#2f3542",
+                "surface-bright": "#333946",
+                "surface-container": "#1a202c",
+                "surface-container-highest": "#2f3542",
+                "tertiary-fixed-dim": "#c8c6c2",
+                "on-secondary-fixed": "#241a00",
+                "on-tertiary": "#31302e",
+                "on-secondary": "#3c2f00",
+                "surface-tint": "#c1c6da",
+                "on-secondary-fixed-variant": "#574500",
+                "primary-container": "#050a18",
+                "primary-fixed": "#dde2f6",
+                "background": "#0d131f",
+                "secondary-fixed-dim": "#e9c349",
+                "on-primary-fixed-variant": "#414657",
+                "surface-container-lowest": "#080e1a",
+                "outline-variant": "#45464c",
+                "surface-container-high": "#242a36",
+                "on-tertiary-fixed": "#1c1c19",
+                "on-surface": "#dde2f3",
+                "on-error": "#690005",
+                "on-tertiary-fixed-variant": "#474744",
+                "on-primary-container": "#74798b",
+                "on-error-container": "#ffdad6",
+                "tertiary-fixed": "#e5e2de",
+                "on-surface-variant": "#c6c6cc",
+                "surface-container-low": "#161c27",
+                "on-background": "#dde2f3",
+                "primary": "#c1c6da",
+                "surface": "#0d131f",
+                "tertiary-container": "#0b0b09",
+                "inverse-surface": "#dde2f3"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "gutter": "24px",
+                "margin-desktop": "64px",
+                "margin-mobile": "20px",
+                "base": "8px",
+                "container-max": "1280px"
+            },
+            "fontFamily": {
+                "headline-lg-mobile": ["Bodoni Moda"],
+                "label-caps": ["DM Sans"],
+                "body-lg": ["DM Sans"],
+                "headline-md": ["Bodoni Moda"],
+                "headline-display": ["Bodoni Moda"],
+                "headline-lg": ["Bodoni Moda"],
+                "body-md": ["DM Sans"]
+            },
+            "fontSize": {
+                "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "0em", "fontWeight": "500"}],
+                "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                "headline-display": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "0em", "fontWeight": "500"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.02em", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(26, 32, 44, 0.4);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .glass-card:hover {
+            background: rgba(26, 32, 44, 0.6);
+            border-color: #e9c349;
+            transform: translateY(-4px);
+        }
+        .glass-card.selected {
+            background: rgba(233, 195, 73, 0.15);
+            border-color: #e9c349;
+            box-shadow: 0 0 40px rgba(233, 195, 73, 0.1);
+        }
+        .progress-glow {
+            box-shadow: 0 0 15px rgba(233, 195, 73, 0.4);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .floating-element {
+            animation: float 10s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-surface-dim text-on-surface selection:bg-secondary/30 min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- Ambient Background -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+
+<div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[120px] floating-element"></div>
+<div class="absolute bottom-[-5%] left-[-5%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] floating-element" style="animation-delay: -5s;"></div>
+</div>
+<!-- Top Navigation Bar -->
+<nav class="w-full top-0 sticky z-50 bg-surface-container/60 dark:bg-surface-container/60 backdrop-blur-3xl border-b border-on-surface/10">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md text-on-surface dark:text-on-surface tracking-tight cursor-pointer">
+                SmartPerfume AI
+            </div>
+<div class="hidden md:flex items-center space-x-10">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300" href="#">Discover</a>
+<a class="font-body-md text-body-md text-secondary-fixed border-b-2 border-secondary-fixed pb-1" href="#">Collection</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300" href="#">Journal</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300" href="#">About</a>
+</div>
+<div class="flex items-center space-x-6">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-secondary-fixed transition-colors cursor-pointer">account_circle</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-secondary-fixed transition-colors cursor-pointer">shopping_bag</button>
+<button class="bg-secondary text-on-secondary px-6 py-2 rounded-full font-label-caps text-label-caps hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-secondary/10">
+                    Create Scent
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Quiz Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center px-margin-mobile md:px-margin-desktop py-12">
+<div class="w-full max-w-4xl mx-auto flex flex-col space-y-12">
+<!-- Progress Section -->
+<div class="w-full space-y-4">
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-secondary-fixed tracking-widest">Question 2 of 4</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">50% Complete</span>
+</div>
+<div class="h-[2px] w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full w-1/2 bg-secondary-fixed progress-glow transition-all duration-1000 ease-out"></div>
+</div>
+</div>
+<!-- Question Header -->
+<div class="text-center space-y-6">
+<h1 class="font-headline-lg text-headline-lg md:text-headline-display text-on-surface max-w-2xl mx-auto leading-tight">
+                    Which scent family resonates with you most today?
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant/80 max-w-xl mx-auto">
+                    Your choice helps our AI model the emotional and sensory landscape of your bespoke fragrance.
+                </p>
+</div>
+<!-- Choice Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Choice 1: Fresh -->
+<div class="glass-card group p-gutter rounded-xl cursor-pointer flex flex-col items-center text-center space-y-6 active:scale-95" onclick="selectCard(this)">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center border border-white/5 group-hover:border-secondary/30 transition-colors">
+<span class="material-symbols-outlined text-4xl text-secondary-fixed" data-icon="lemon">admin</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Fresh</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Bright citrus, sea salt, and crisp morning dew.</p>
+</div>
+<div class="opacity-0 group-[.selected]:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Choice 2: Woody -->
+<div class="glass-card group p-gutter rounded-xl cursor-pointer flex flex-col items-center text-center space-y-6 active:scale-95 selected" onclick="selectCard(this)">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center border border-white/5 group-hover:border-secondary/30 transition-colors">
+<span class="material-symbols-outlined text-4xl text-secondary-fixed" data-icon="forest">forest</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Woody</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Sandalwood, cedar, and earthy vetiver notes.</p>
+</div>
+<div class="opacity-0 group-[.selected]:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Choice 3: Oriental -->
+<div class="glass-card group p-gutter rounded-xl cursor-pointer flex flex-col items-center text-center space-y-6 active:scale-95" onclick="selectCard(this)">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center border border-white/5 group-hover:border-secondary/30 transition-colors">
+<span class="material-symbols-outlined text-4xl text-secondary-fixed" data-icon="local_fire_department">local_fire_department</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Oriental</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Rich spices, warm amber, and exotic resins.</p>
+</div>
+<div class="opacity-0 group-[.selected]:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Choice 4: Sweet -->
+<div class="glass-card group p-gutter rounded-xl cursor-pointer flex flex-col items-center text-center space-y-6 active:scale-95" onclick="selectCard(this)">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center border border-white/5 group-hover:border-secondary/30 transition-colors">
+<span class="material-symbols-outlined text-4xl text-secondary-fixed" data-icon="icecream">icecream</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Sweet</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Vanilla, tonka bean, and gourmand delights.</p>
+</div>
+<div class="opacity-0 group-[.selected]:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Navigation Controls -->
+<div class="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-outline-variant/20 gap-gutter">
+<button class="w-full sm:w-auto px-10 py-4 rounded-lg border border-secondary text-secondary font-label-caps text-label-caps hover:bg-secondary/5 transition-all flex items-center justify-center space-x-2 active:scale-95">
+<span class="material-symbols-outlined text-base">arrow_back</span>
+<span>Previous</span>
+</button>
+<div class="hidden sm:block text-on-tertiary-container font-body-md italic opacity-50">
+                    Discover your essence...
+                </div>
+<button class="w-full sm:w-auto px-12 py-4 rounded-lg bg-secondary text-on-secondary font-label-caps text-label-caps hover:opacity-90 shadow-xl shadow-secondary/20 transition-all flex items-center justify-center space-x-2 active:scale-95">
+<span>Next Step</span>
+<span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-surface-dim dark:bg-surface-dim border-t border-outline-variant/20">
+<div class="flex flex-col items-center justify-center space-y-base px-margin-desktop max-w-container-max mx-auto text-center">
+<div class="font-headline-md text-headline-md text-on-surface mb-4">SmartPerfume AI</div>
+<div class="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-6">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Scent Science</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact</a>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-60">
+                © 2024 SmartPerfume AI. The Art of Computational Olfaction.
+            </p>
+</div>
+</footer>
+<script>
+        function selectCard(element) {
+            // Clear previous selection
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            // Add current selection
+            element.classList.add('selected');
+            
+            // Trigger haptic-like effect or simple log
+            console.log("Selected Scent Family:", element.querySelector('h3').innerText);
+        }
+
+        // Initialize state for the demo
+        document.addEventListener('DOMContentLoaded', () => {
+            const woodyCard = document.querySelector('.glass-card.selected');
+            if(woodyCard) selectCard(woodyCard);
+        });
+    </script>
+</body></html>

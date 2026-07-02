@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400..900;1,400..900&amp;family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0d131f;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(26, 32, 44, 0.6);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(221, 226, 243, 0.1);
+        }
+        .glass-border-gradient {
+            border: 1px solid;
+            border-image-source: linear-gradient(135deg, rgba(255, 224, 136, 0.2) 0%, rgba(255, 224, 136, 0) 100%);
+        }
+        .shimmer {
+            background: linear-gradient(90deg, rgba(255,224,136,0) 0%, rgba(255,224,136,0.05) 50%, rgba(255,224,136,0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#0d131f",
+                        "secondary-fixed": "#ffe088",
+                        "outline": "#909096",
+                        "error-container": "#93000a",
+                        "inverse-primary": "#595e6f",
+                        "secondary-container": "#af8d11",
+                        "on-tertiary-container": "#7b7976",
+                        "tertiary": "#c8c6c2",
+                        "primary-fixed-dim": "#c1c6da",
+                        "inverse-on-surface": "#2a303d",
+                        "on-primary": "#2b3040",
+                        "on-secondary-container": "#342800",
+                        "on-primary-fixed": "#161b2a",
+                        "error": "#ffb4ab",
+                        "secondary": "#e9c349",
+                        "surface-variant": "#2f3542",
+                        "surface-bright": "#333946",
+                        "surface-container": "#1a202c",
+                        "surface-container-highest": "#2f3542",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "on-secondary-fixed": "#241a00",
+                        "on-tertiary": "#31302e",
+                        "on-secondary": "#3c2f00",
+                        "surface-tint": "#c1c6da",
+                        "on-secondary-fixed-variant": "#574500",
+                        "primary-container": "#050a18",
+                        "primary-fixed": "#dde2f6",
+                        "background": "#0d131f",
+                        "secondary-fixed-dim": "#e9c349",
+                        "on-primary-fixed-variant": "#414657",
+                        "surface-container-lowest": "#080e1a",
+                        "outline-variant": "#45464c",
+                        "surface-container-high": "#242a36",
+                        "on-tertiary-fixed": "#1c1c19",
+                        "on-surface": "#dde2f3",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed-variant": "#474744",
+                        "on-primary-container": "#74798b",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed": "#e5e2de",
+                        "on-surface-variant": "#c6c6cc",
+                        "surface-container-low": "#161c27",
+                        "on-background": "#dde2f3",
+                        "primary": "#c1c6da",
+                        "surface": "#0d131f",
+                        "tertiary-container": "#0b0b09",
+                        "inverse-surface": "#dde2f3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px",
+                        "base": "8px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Bodoni Moda"],
+                        "label-caps": ["DM Sans"],
+                        "body-lg": ["DM Sans"],
+                        "headline-md": ["Bodoni Moda"],
+                        "headline-display": ["Bodoni Moda"],
+                        "headline-lg": ["Bodoni Moda"],
+                        "body-md": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "0em", "fontWeight": "500" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.15em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "headline-display": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.2", "letterSpacing": "0em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0.02em", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-secondary-fixed/30">
+<!-- Top Navigation Bar -->
+<nav class="w-full top-0 sticky z-50 bg-surface-container/60 dark:bg-surface-container/60 backdrop-blur-3xl border-b border-on-surface/10">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md text-on-surface dark:text-on-surface tracking-tighter">SmartPerfume AI</div>
+<div class="hidden md:flex items-center space-x-12">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300 cursor-pointer" href="#">Discover</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300 cursor-pointer" href="#">Collection</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300 cursor-pointer" href="#">Journal</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300 cursor-pointer" href="#">About</a>
+</div>
+<div class="flex items-center space-x-6">
+<div class="hidden md:block">
+<button class="px-6 py-2 bg-secondary text-on-secondary-fixed font-label-caps text-label-caps rounded-full cursor-pointer transition-all active:scale-95 hover:opacity-90">
+                        Create Scent
+                    </button>
+</div>
+<div class="flex space-x-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-secondary-fixed transition-colors" data-icon="account_circle">account_circle</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-secondary-fixed transition-colors" data-icon="shopping_bag">shopping_bag</span>
+</div>
+</div>
+</div>
+</nav>
+<main class="relative min-h-screen">
+<!-- Ambient Background Animation -->
+<div class="fixed inset-0 pointer-events-none z-0">
+
+</div>
+<!-- Success Header Section -->
+<section class="relative z-10 pt-20 pb-12 px-margin-desktop text-center max-w-container-max mx-auto">
+<div class="inline-flex items-center space-x-2 px-4 py-1.5 glass-card rounded-full mb-8 glass-border-gradient">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Digital Advisor Match</span>
+</div>
+<h1 class="font-headline-display text-headline-display mb-6 leading-tight">
+                Your Perfect Match:<br/>
+<span class="text-secondary-fixed italic">The Digital Advisor has found your signature scent.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto opacity-80">
+                Based on your sensory preferences and personality profile, we've computationally synthesized a fragrance that resonates with your core identity.
+            </p>
+</section>
+<!-- Product Hero Card (Bento-style Layout) -->
+<section class="relative z-10 pb-32 px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left: Product Visuals -->
+<div class="lg:col-span-7 relative h-[600px] rounded-2xl overflow-hidden glass-card group">
+<div class="absolute inset-0 shimmer"></div>
+<div class="absolute inset-0 flex items-center justify-center p-12">
+<div class="relative w-full h-full floating">
+<img class="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(233,195,73,0.3)]" data-alt="A minimalist, sculptural glass perfume bottle for L'Essence Céleste, featuring a sleek, tall geometric design with a translucent Champagne Gold liquid. The bottle sits on a reflective obsidian surface against a backdrop of soft, diffused mist and golden light particles. The aesthetic is high-end luxury, scientific precision, and ethereal beauty, with deep midnight blue and gold tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCF9-tHTo1zG5OrXE45TX-ixwmsopfaNd5VV1yZ2xmzLrEaicFi8q_YQca54_7etN-hsLtLQ_Fdp0TemhklWGet37Yk4tfi5otkcpoPOooazPhMCPftUBKZg7gDF6x4x4eqpTwcSD8xies1HtENrSfiUcUnLVCwvqPlgxpIfX638gbAgKIHAgIymmLywFIqLrYCNnDu2A9xfCweQaVY0xs6UoTlZNKIDEqDTyumLGfrkIFwJ2_MU_FD3Vy2xsb_GQT0eOzZpMEkitzr"/>
+</div>
+</div>
+<!-- Badge -->
+<div class="absolute top-8 left-8 glass-card px-4 py-2 rounded-lg border border-secondary/20">
+<span class="font-label-caps text-label-caps text-on-surface">Scientific Synthesis No. 842</span>
+</div>
+</div>
+<!-- Right: Product Information -->
+<div class="lg:col-span-5 flex flex-col justify-between p-12 rounded-2xl glass-card relative overflow-hidden">
+<div class="absolute top-0 right-0 p-8">
+<button class="p-3 rounded-full glass-card hover:bg-secondary/20 transition-all active:scale-90">
+<span class="material-symbols-outlined text-on-surface" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-secondary-fixed mb-4 tracking-[0.2em] uppercase">Signature Scent</div>
+<h2 class="font-headline-lg text-headline-lg mb-4">L'Essence Céleste</h2>
+<div class="flex items-center space-x-4 mb-8">
+<span class="font-headline-md text-headline-md text-secondary-fixed">€145.00</span>
+<div class="px-3 py-1 rounded-full bg-secondary-fixed/10 border border-secondary-fixed/20">
+<span class="font-label-caps text-[10px] text-secondary-fixed">IN STOCK</span>
+</div>
+</div>
+<div class="space-y-8">
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 border-b border-outline-variant/30 pb-2">Olfactory Profile</h3>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 glass-card rounded-full font-label-caps text-label-caps text-on-surface border border-outline-variant/20">Bergamot</span>
+<span class="px-4 py-2 glass-card rounded-full font-label-caps text-label-caps text-on-surface border border-outline-variant/20">Oud</span>
+<span class="px-4 py-2 glass-card rounded-full font-label-caps text-label-caps text-on-surface border border-outline-variant/20">Midnight Jasmine</span>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-surface-container-highest/10 border border-outline-variant/10">
+<p class="font-body-md text-body-md italic text-on-surface-variant opacity-90">
+                                    "A sophisticated blend designed for the visionary. The brightness of bergamot meets the deep complexity of ancient oud, unified by the elusive charm of night-blooming jasmine."
+                                </p>
+</div>
+</div>
+</div>
+<div class="mt-12 space-y-4">
+<button class="w-full py-5 bg-secondary text-on-secondary-fixed font-label-caps text-label-caps rounded-xl flex items-center justify-center space-x-3 transition-all hover:shadow-[0_0_30px_rgba(233,195,73,0.3)] active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span>Add to Cart</span>
+</button>
+<div class="flex justify-center">
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-colors flex items-center space-x-2 py-2">
+<span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span>
+<span>Retake Quiz</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Discovery Grid / Secondary Items -->
+<div class="mt-gutter grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="p-8 rounded-2xl glass-card group cursor-pointer hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-secondary mb-4" data-icon="science">science</span>
+<h4 class="font-headline-md text-headline-md mb-2">Molecular Design</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Every note is analyzed for its psychological impact on the wearer and those around them.</p>
+</div>
+<div class="p-8 rounded-2xl glass-card group cursor-pointer hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-secondary mb-4" data-icon="eco">eco</span>
+<h4 class="font-headline-md text-headline-md mb-2">Sustainably Sourced</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Our raw materials are ethically harvested from heritage estates across the globe.</p>
+</div>
+<div class="p-8 rounded-2xl glass-card group cursor-pointer hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-secondary mb-4" data-icon="auto_awesome">auto_awesome</span>
+<h4 class="font-headline-md text-headline-md mb-2">Smart Scent Tech</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Adaptive molecular release ensures your signature scent evolves gracefully throughout the day.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-surface-dim dark:bg-surface-dim border-t border-outline-variant/20">
+<div class="flex flex-col items-center justify-center space-y-base px-margin-desktop max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md text-on-surface mb-4">SmartPerfume AI</div>
+<nav class="flex flex-wrap justify-center gap-8 mb-8">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Scent Science</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Contact</a>
+</nav>
+<div class="font-body-md text-body-md text-on-surface-variant opacity-60 text-center">
+                © 2024 SmartPerfume AI. The Art of Computational Olfaction.
+            </div>
+<!-- Social Icons -->
+<div class="flex space-x-6 pt-6">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-secondary transition-colors" data-icon="brand_awareness">brand_awareness</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-secondary transition-colors" data-icon="public">public</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-secondary transition-colors" data-icon="share">share</span>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions and atmospheric logic
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            // Subtly shift background shader opacity or position
+            const shader = document.querySelector('webgl-shader');
+            if (shader) {
+                shader.style.transform = `translate(${x * 10}px, ${y * 10}px)`;
+            }
+        });
+
+        // Add to cart simple feedback
+        const addToCartBtn = document.querySelector('button.bg-secondary');
+        if (addToCartBtn) {
+            addToCartBtn.addEventListener('click', () => {
+                const originalContent = addToCartBtn.innerHTML;
+                addToCartBtn.innerHTML = `
+                    <span class="material-symbols-outlined animate-spin" data-icon="progress_activity">progress_activity</span>
+                    <span>Adding...</span>
+                `;
+                addToCartBtn.disabled = true;
+                
+                setTimeout(() => {
+                    addToCartBtn.innerHTML = `
+                        <span class="material-symbols-outlined" data-icon="check">check</span>
+                        <span>Added to Collection</span>
+                    `;
+                    setTimeout(() => {
+                        addToCartBtn.innerHTML = originalContent;
+                        addToCartBtn.disabled = false;
+                    }, 2000);
+                }, 1000);
+            });
+        }
+    </script>
+</body></html>
