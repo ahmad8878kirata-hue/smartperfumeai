@@ -4,7 +4,7 @@ import { useAuth } from './AuthContext'
 const CartContext = createContext()
 
 export function CartProvider({ children }) {
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
   const [items, setItems] = useState([])
   const [loaded, setLoaded] = useState(false)
   const [pendingSync, setPendingSync] = useState(null)
@@ -34,9 +34,15 @@ export function CartProvider({ children }) {
       fetch('/api/cart', {
         headers: { Authorization: `Bearer ${token}` },
       })
-        .then((r) => r.json())
+        .then((r) => {
+          if (!r.ok) {
+            if (r.status === 401) logout()
+            throw new Error('API error')
+          }
+          return r.json()
+        })
         .then((cart) => {
-          setItems(cart)
+          setItems(Array.isArray(cart) ? cart : [])
           setLoaded(true)
           fetching.current = false
         })
@@ -52,7 +58,7 @@ export function CartProvider({ children }) {
       setLoaded(true)
       fetching.current = false
     }
-  }, [token])
+  }, [token, logout])
 
   useEffect(() => {
     if (!loaded) return

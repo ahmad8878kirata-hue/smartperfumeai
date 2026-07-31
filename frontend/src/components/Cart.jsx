@@ -1,10 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { useSurvey } from '../context/SurveyContext'
 
 export default function Cart() {
   const navigate = useNavigate()
-  const { surveyDone } = useSurvey()
   const { items, removeItem, updateQty, totalItems, totalPrice, clearCart } = useCart()
 
   return (
@@ -14,23 +12,7 @@ export default function Cart() {
         <p className="font-body-lg text-body-lg text-on-surface-variant">Review your curated fragrance collection.</p>
       </div>
 
-      {!surveyDone && (
-        <div className="glass-card rounded-xl p-8 mb-8 text-center border-error/30">
-          <span className="material-symbols-outlined text-5xl text-error mb-4" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
-          <h2 className="font-headline-md text-headline-md text-on-surface mb-2">Complete the Survey First</h2>
-          <p className="font-body-md text-body-md text-on-surface-variant mb-6 max-w-md mx-auto">
-            You need to take the scent discovery quiz before you can manage your fragrance cart.
-          </p>
-          <Link
-            to="/quiz"
-            className="inline-block bg-secondary text-on-secondary px-8 py-3 rounded-full font-label-caps text-label-caps hover:opacity-90 active:scale-95 transition-all shadow-lg"
-          >
-            Complete Survey
-          </Link>
-        </div>
-      )}
-
-      {surveyDone && items.length === 0 && (
+      {items.length === 0 && (
         <div className="glass-card rounded-xl p-12 text-center">
           <span className="material-symbols-outlined text-7xl text-on-surface-variant opacity-30 mb-4">shopping_bag</span>
           <h2 className="font-headline-md text-headline-md text-on-surface mb-2">Your Cart is Empty</h2>
@@ -44,7 +26,7 @@ export default function Cart() {
         </div>
       )}
 
-      {surveyDone && items.length > 0 && (
+      {items.length > 0 && (
         <>
           <div className="flex flex-col space-y-4 mb-8">
             {items.map((item) => (

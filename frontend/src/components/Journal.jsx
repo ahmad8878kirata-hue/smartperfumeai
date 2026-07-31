@@ -61,10 +61,6 @@ export default function Journal() {
             <p className="font-body-md text-body-md text-on-surface-variant text-sm mb-4 leading-relaxed">{a.excerpt}</p>
             <div className="flex items-center justify-between pt-4 border-t border-outline-variant/10">
               <span className="font-label-caps text-label-caps text-on-tertiary-container">{a.date}</span>
-              <span className="font-label-caps text-label-caps text-secondary-fixed group-hover:opacity-100 opacity-70 transition-opacity flex items-center gap-1">
-                Read More
-                <span className="material-symbols-outlined text-sm">arrow_forward</span>
-              </span>
             </div>
           </div>
         ))}

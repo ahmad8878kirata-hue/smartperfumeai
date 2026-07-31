@@ -2,20 +2,18 @@ import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useSurvey } from '../context/SurveyContext'
 import { useCart } from '../context/CartContext'
+import { defaultFragrances } from '../data/fragrances'
+import { describeFragrance } from '../data/quizRules'
 
-const product = {
-  id: 'PF-005',
-  name: "L'Essence C\u00e9leste",
-  brand: 'SmartPerfume AI',
-  price: 145.00,
-}
+const fallbackProduct = defaultFragrances.find((f) => f.id === 'PF-005') ?? defaultFragrances[0]
 
 export default function Recommendation() {
   const navigate = useNavigate()
-  const { surveyDone } = useSurvey()
+  const { surveyDone, recommendation } = useSurvey()
   const { items, addItem, removeItem } = useCart()
   const [cartMsg, setCartMsg] = useState(null)
 
+  const product = recommendation ?? fallbackProduct
   const inCart = items.some((i) => i.id === product.id)
 
   useEffect(() => {
@@ -70,12 +68,16 @@ export default function Recommendation() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
             <div className="lg:col-span-7 relative h-[600px] rounded-2xl overflow-hidden glass-card group">
               <div className="absolute inset-0 flex items-center justify-center p-12">
-                <div className="relative w-full h-full flex items-center justify-center text-on-surface-variant">
-                  <span className="material-symbols-outlined text-9xl opacity-20">spa</span>
-                </div>
+                {product.image ? (
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="relative w-full h-full flex items-center justify-center text-on-surface-variant">
+                    <span className="material-symbols-outlined text-9xl opacity-20">spa</span>
+                  </div>
+                )}
               </div>
               <div className="absolute top-8 left-8 glass-card px-4 py-2 rounded-lg border border-secondary/20">
-                <span className="font-label-caps text-label-caps text-on-surface">Scientific Synthesis No. 842</span>
+                <span className="font-label-caps text-label-caps text-on-surface">Scientific Synthesis No. {product.id.replace(/\D/g, '')}</span>
               </div>
             </div>
             <div className="lg:col-span-5 flex flex-col justify-between p-12 rounded-2xl glass-card relative overflow-hidden">
@@ -86,9 +88,10 @@ export default function Recommendation() {
               </div>
               <div>
                 <div className="font-label-caps text-label-caps text-secondary-fixed mb-4 tracking-[0.2em] uppercase">Signature Scent</div>
-                <h2 className="font-headline-lg text-headline-lg mb-4">L&apos;Essence C&eacute;leste</h2>
+                <h2 className="font-headline-lg text-headline-lg mb-4">{product.name}</h2>
+                <p className="font-label-caps text-label-caps text-on-surface-variant mb-6">{product.brand}</p>
                 <div className="flex items-center space-x-4 mb-8">
-                  <span className="font-headline-md text-headline-md text-secondary-fixed">&euro;145.00</span>
+                  <span className="font-headline-md text-headline-md text-secondary-fixed">&euro;{product.price.toFixed(2)}</span>
                   <div className="px-3 py-1 rounded-full bg-secondary-fixed/10 border border-secondary-fixed/20">
                     <span className="font-label-caps text-[10px] text-secondary-fixed">IN STOCK</span>
                   </div>
@@ -97,15 +100,16 @@ export default function Recommendation() {
                   <div>
                     <h3 className="font-label-caps text-label-caps text-on-surface-variant mb-4 border-b border-outline-variant/30 pb-2">Olfactory Profile</h3>
                     <div className="flex flex-wrap gap-3">
-                      <span className="px-4 py-2 glass-card rounded-full font-label-caps text-label-caps text-on-surface border border-outline-variant/20">Bergamot</span>
-                      <span className="px-4 py-2 glass-card rounded-full font-label-caps text-label-caps text-on-surface border border-outline-variant/20">Oud</span>
-                      <span className="px-4 py-2 glass-card rounded-full font-label-caps text-label-caps text-on-surface border border-outline-variant/20">Midnight Jasmine</span>
+                      {(product.ingredients || []).map((ing) => (
+                        <span key={ing} className="px-4 py-2 glass-card rounded-full font-label-caps text-label-caps text-on-surface border border-outline-variant/20">
+                          {ing}
+                        </span>
+                      ))}
                     </div>
                   </div>
                   <div className="p-6 rounded-xl bg-surface-container-highest/10 border border-outline-variant/10">
                     <p className="font-body-md text-body-md italic text-on-surface-variant opacity-90">
-                      &ldquo;A sophisticated blend designed for the visionary. The brightness of bergamot meets the deep
-                      complexity of ancient oud, unified by the elusive charm of night-blooming jasmine.&rdquo;
+                      &ldquo;{describeFragrance(product)}&rdquo;
                     </p>
                   </div>
                 </div>

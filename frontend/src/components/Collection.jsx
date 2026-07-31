@@ -1,14 +1,8 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import { loadFragrances } from '../data/fragrances'
 
-const allFragrances = [
-  { id: 'PF-001', name: 'Midnight Oud', brand: "L'Artiste Digital", ingredients: ['Oud', 'Saffron', 'Leather'], price: 185, notes: 'Woody, Smoky, Luxurious', rating: 4.8 },
-  { id: 'PF-002', name: 'Solaris Mist', brand: 'Neo-Olfactive', ingredients: ['Bergamot', 'Amber', 'Sea Salt'], price: 140, notes: 'Fresh, Aquatic, Warm', rating: 4.6 },
-  { id: 'PF-003', name: 'Cipher Green', brand: 'Algorithm Scent', ingredients: ['Vetiver', 'Oakmoss', 'Green Tea'], price: 210, notes: 'Earthy, Green, Sophisticated', rating: 4.7 },
-  { id: 'PF-004', name: 'Velvet Logic', brand: 'SmartPerfume AI', ingredients: ['Rose', 'Patchouli', 'Vanilla'], price: 245, notes: 'Floral, Deep, Sensual', rating: 4.9 },
-  { id: 'PF-005', name: "L'Essence C\u00e9leste", brand: 'SmartPerfume AI', ingredients: ['Bergamot', 'Oud', 'Midnight Jasmine'], price: 145, notes: 'Elegant, Complex, Visionary', rating: 5.0 },
-]
+const allFragrances = loadFragrances()
 
 export default function Collection() {
   const { items, addItem, removeItem } = useCart()
@@ -43,15 +37,14 @@ export default function Collection() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
         {allFragrances.map((f) => (
           <div key={f.id} className="glass-card rounded-xl p-6 group hover:bg-surface-container-high transition-all">
-            <div className="w-full h-48 rounded-xl bg-surface-container-higher mb-5 flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-secondary-container/10 to-surface-container-highest" />
-              <span className="material-symbols-outlined text-7xl text-secondary-fixed opacity-30 relative z-10">spa</span>
+            <div className="w-full h-48 rounded-xl bg-surface-container-higher mb-5 overflow-hidden relative">
+              <img src={f.image} alt={f.name} className="w-full h-full object-cover" loading="lazy" />
+              <div className="absolute inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-10 pb-3">
+                <h3 className="font-headline-md text-headline-md text-white tracking-wide px-3 text-center">{f.name}</h3>
+              </div>
             </div>
             <div className="flex items-start justify-between mb-3">
-              <div>
-                <h3 className="font-headline-md text-headline-md text-on-surface">{f.name}</h3>
-                <p className="font-label-caps text-label-caps text-on-surface-variant mt-1">{f.brand}</p>
-              </div>
+              <p className="font-label-caps text-label-caps text-on-surface-variant">{f.brand}</p>
               <div className="flex items-center gap-1 text-secondary-fixed">
                 <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
                 <span className="font-body-md text-body-md">{f.rating}</span>

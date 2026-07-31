@@ -1,13 +1,12 @@
-import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useSurvey } from '../context/SurveyContext'
 import { useCart } from '../context/CartContext'
 
 const navLinks = [
   { label: 'Discover', path: '/home', icon: 'explore' },
-  { label: 'Collection', path: '/collection', icon: 'inventory_2', needsSurvey: true },
-  { label: 'Journal', path: '/journal', icon: 'menu_book', needsSurvey: true },
-  { label: 'About', path: '/about', icon: 'info', needsSurvey: true },
+  { label: 'Collection', path: '/collection', icon: 'inventory_2' },
+  { label: 'Journal', path: '/journal', icon: 'menu_book' },
+  { label: 'About', path: '/about', icon: 'info' },
 ]
 
 export default function Layout({ children }) {
@@ -15,26 +14,6 @@ export default function Layout({ children }) {
   const navigate = useNavigate()
   const { surveyDone } = useSurvey()
   const { totalItems } = useCart()
-  const [lockMsg, setLockMsg] = useState(null)
-
-  const handleNavClick = (e, link) => {
-    if (link.needsSurvey && !surveyDone) {
-      e.preventDefault()
-      setLockMsg(`Complete the survey first to access "${link.label}"`)
-      setTimeout(() => setLockMsg(null), 3000)
-      return
-    }
-    setLockMsg(null)
-  }
-
-  const handleCartClick = () => {
-    if (!surveyDone) {
-      setLockMsg('Complete the survey first to view your cart')
-      setTimeout(() => setLockMsg(null), 3000)
-      return
-    }
-    navigate('/cart')
-  }
 
   return (
     <div className="bg-surface-dim text-on-surface min-h-screen flex flex-col font-body-md">
@@ -50,7 +29,6 @@ export default function Layout({ children }) {
                 <Link
                   key={link.label}
                   to={link.path}
-                  onClick={(e) => handleNavClick(e, link)}
                   className={`font-body-md text-body-md transition-colors duration-300 ${
                     isActive
                       ? 'text-secondary-fixed border-b-2 border-secondary-fixed pb-1'
@@ -69,11 +47,11 @@ export default function Layout({ children }) {
             >
               account_circle
             </span>
-            <div className="relative cursor-pointer" onClick={handleCartClick}>
+            <div className="relative cursor-pointer" onClick={() => navigate('/cart')}>
               <span className="material-symbols-outlined text-on-surface-variant hover:text-secondary-fixed transition-colors">
                 shopping_bag
               </span>
-              {surveyDone && totalItems > 0 && (
+              {totalItems > 0 && (
                 <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-secondary text-on-secondary text-[10px] font-bold flex items-center justify-center">
                   {totalItems}
                 </span>
@@ -97,12 +75,6 @@ export default function Layout({ children }) {
           </div>
         </div>
       </nav>
-
-      {lockMsg && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[60] px-6 py-3 rounded-lg bg-error-container/90 text-error border border-error/30 font-label-caps text-label-caps tracking-wider uppercase shadow-2xl animate-pulse">
-          {lockMsg}
-        </div>
-      )}
 
       <main className="flex-grow">{children}</main>
 

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 
 const AuthContext = createContext()
 
@@ -16,13 +16,13 @@ export function AuthProvider({ children }) {
     }
   }, [user])
 
-  const login = (email, token) => {
+  const login = useCallback((email, token) => {
     setUser({ email, token })
-  }
+  }, [])
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setUser(null)
-  }
+  }, [])
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>

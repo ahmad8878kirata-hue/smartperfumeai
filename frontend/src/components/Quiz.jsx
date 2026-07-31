@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSurvey } from '../context/SurveyContext'
+import { recommendFragrance } from '../data/quizRules'
+import { loadFragrances } from '../data/fragrances'
 
 const questions = [
   {
@@ -43,7 +45,7 @@ const questions = [
 
 export default function Quiz() {
   const navigate = useNavigate()
-  const { setSurveyDone } = useSurvey()
+  const { setSurveyDone, setRecommendation } = useSurvey()
   const [currentQ, setCurrentQ] = useState(0)
   const [answers, setAnswers] = useState({})
   const [submitting, setSubmitting] = useState(false)
@@ -79,6 +81,8 @@ export default function Quiz() {
     } catch {
       /* continue regardless */
     }
+    const rec = recommendFragrance(answers, loadFragrances())
+    setRecommendation(rec)
     setSurveyDone(true)
     setSubmitting(false)
     navigate('/recommendation')
