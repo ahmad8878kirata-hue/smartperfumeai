@@ -1,16 +1,16 @@
-# SmartPerfume AI
+# SmartPerfume
 
-**The Art of Computational Olfaction**
+**The Art of Fine Fragrance**
 
-SmartPerfume AI is an AI-powered personalized fragrance recommendation and e-commerce web application. It combines machine learning concepts with perfumery to analyze a user's sensory preferences and recommend a bespoke fragrance. Users can take a scent discovery quiz, receive a personalized recommendation, browse a curated collection of fragrances, and purchase them through a shopping cart system. The platform also features an admin panel for catalog management and a journal section exploring computational perfumery.
+SmartPerfume is a personalized fragrance recommendation and e-commerce web application. It combines perfumery expertise with a user's personal preferences to recommend a bespoke fragrance. Users can take a scent discovery quiz, receive a personalized recommendation, browse a curated collection of fragrances, and purchase them through a shopping cart system. The platform also features an admin panel for catalog management and a journal section exploring the world of fragrance.
 
 ---
 
 ## Simplified Explanation
 
-SmartPerfume AI is a website where users answer a short quiz about their scent preferences (favorite scent family, mood, occasion, and intensity), and an AI "advisor" recommends a perfume tailored to them. After receiving their recommendation, users can browse other fragrances in the collection, add them to a shopping cart, and manage their orders. There is also an admin panel for managing the fragrance catalog and a journal with articles about the science behind AI-powered perfumery.
+SmartPerfume is a website where users answer a short quiz about their scent preferences (favorite scent family, mood, occasion, and intensity) and receive a perfume tailored to them. After receiving their recommendation, users can browse other fragrances in the collection, add them to a shopping cart, and manage their orders. There is also an admin panel for managing the fragrance catalog and a journal with articles about the science and art of perfumery.
 
-Think of it as a **personalized perfume shop guided by AI** — you tell it what you like, it tells you what to wear, and you can buy it right there.
+Think of it as a **personalized perfume shop** — you tell us what you like, we suggest what to wear, and you can buy it right there.
 
 ---
 
@@ -32,18 +32,18 @@ Think of it as a **personalized perfume shop guided by AI** — you tell it what
 
 ### For Users
 - **Scent Discovery Quiz** — A 4-question interactive questionnaire covering scent family, mood, setting, and sillage intensity.
-- **AI Fragrance Recommendation** — Personalized perfume suggestion based on quiz answers.
+- **Fragrance Recommendation** — Personalized perfume suggestion based on quiz answers.
 - **Fragrance Collection** — Browse 5 curated fragrances with details on ingredients, notes, ratings, and prices.
 - **Shopping Cart** — Add/remove fragrances, adjust quantities, view totals, and clear the cart.
 - **User Authentication** — Register and log in with email and password (JWT-based).
 - **Guest Mode** — Continue without signing in to explore the platform.
 - **Account Dashboard** — View profile status, scent profile milestones, and quick navigation.
-- **Scent Journal** — Read articles about computational olfaction, AI in perfumery, sustainability, and more.
+- **Scent Journal** — Read articles about fragrance science, perfumery, sustainability, and more.
 - **About Page** — Learn about the company mission, vision, and team.
 
 ### For Admins
 - **Admin Catalog Panel** — Manage fragrances with search, edit, and delete functionality.
-- **Dashboard Metrics** — View total fragrances, computational blends, active regions, and system status.
+- **Dashboard Metrics** — View total fragrances, blends, active regions, and system status.
 
 ---
 
@@ -103,7 +103,7 @@ smartperfumeai/
             ├── Login.jsx           # Login/Register page
             ├── HomePage.jsx        # Landing page
             ├── Quiz.jsx            # Scent discovery quiz
-            ├── Recommendation.jsx  # AI recommendation display
+            ├── Recommendation.jsx  # Recommendation display
             ├── Collection.jsx      # Fragrance catalog
             ├── Cart.jsx            # Shopping cart
             ├── Account.jsx         # User dashboard
@@ -266,11 +266,11 @@ curl http://localhost:5000/api/fragrances?search=oud
 | `/login` | Login | Explicit login route |
 | `/home` | HomePage | Marketing landing page with features and "How It Works" |
 | `/quiz` | Quiz | 4-question scent discovery quiz |
-| `/recommendation` | Recommendation | AI-generated perfume recommendation (requires quiz completion) |
+| `/recommendation` | Recommendation | Personalized perfume recommendation (requires quiz completion) |
 | `/collection` | Collection | Browse all fragrances and add to cart |
 | `/cart` | Cart | View and manage shopping cart items |
 | `/account` | Account | User dashboard with profile and settings |
-| `/journal` | Journal | Blog articles about computational perfumery |
+| `/journal` | Journal | Blog articles about the art and science of perfumery |
 | `/about` | About | Company mission, vision, and team |
 | `/admin` | AdminCatalog | Admin panel for fragrance catalog management |
 

@@ -17,12 +17,12 @@ export default function HomePage() {
           <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest">The Future of Fragrance</span>
         </div>
         <h1 className="font-headline-display text-headline-display mb-6 leading-tight">
-          Where Code Meets<br />
-          <span className="text-secondary-fixed italic">Olfactory Art</span>
+          The Art of<br />
+          <span className="text-secondary-fixed italic">Fine Fragrance</span>
         </h1>
         <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-12 opacity-80">
-          SmartPerfume AI uses advanced computational olfaction to analyze your unique sensory profile
-          and craft a bespoke fragrance that resonates with your identity. No two scents are ever alike.
+          SmartPerfume crafts bespoke fragrances guided by your personal preferences and mood.
+          No two scents are ever alike.
         </p>
         {surveyDone ? (
           <Link
@@ -47,18 +47,18 @@ export default function HomePage() {
             <div className="w-16 h-16 mx-auto rounded-full bg-secondary-container/20 flex items-center justify-center">
               <span className="material-symbols-outlined text-3xl text-secondary-fixed">psychology</span>
             </div>
-            <h3 className="font-headline-md text-headline-md">AI-Powered Analysis</h3>
+            <h3 className="font-headline-md text-headline-md">Personalized Matching</h3>
             <p className="font-body-md text-body-md text-on-surface-variant">
-              Our machine learning model evaluates thousands of molecular combinations to find your perfect match.
+              Your quiz answers are paired with our curated collection to find your perfect match.
             </p>
           </div>
           <div className="glass-card p-8 rounded-2xl text-center space-y-4 hover:bg-surface-container-high transition-all">
             <div className="w-16 h-16 mx-auto rounded-full bg-secondary-container/20 flex items-center justify-center">
               <span className="material-symbols-outlined text-3xl text-secondary-fixed">science</span>
             </div>
-            <h3 className="font-headline-md text-headline-md">Molecular Design</h3>
+            <h3 className="font-headline-md text-headline-md">Artisan Blending</h3>
             <p className="font-body-md text-body-md text-on-surface-variant">
-              Every note is computationally designed for optimal harmony and lasting impression.
+              Every note is carefully blended for optimal harmony and lasting impression.
             </p>
           </div>
           <div className="glass-card p-8 rounded-2xl text-center space-y-4 hover:bg-surface-container-high transition-all">
@@ -67,7 +67,7 @@ export default function HomePage() {
             </div>
             <h3 className="font-headline-md text-headline-md">Sustainable Luxury</h3>
             <p className="font-body-md text-body-md text-on-surface-variant">
-              Ethically sourced ingredients combined with precision AI to minimize waste and maximize quality.
+              Ethically sourced ingredients, crafted to minimize waste and maximize quality.
             </p>
           </div>
         </div>
@@ -80,7 +80,7 @@ export default function HomePage() {
             {[
               { step: '01', title: 'Create Profile', desc: 'Sign in and tell us about your scent preferences.' },
               { step: '02', title: 'Take the Quiz', desc: 'Answer a few questions about the scents you love.' },
-              { step: '03', title: 'AI Analysis', desc: 'Our engine computes your unique olfactory fingerprint.' },
+              { step: '03', title: 'Expert Matching', desc: 'Your answers are matched to fragrances you will love.' },
               { step: '04', title: 'Discover Your Scent', desc: 'Receive your personalized fragrance recommendation.' },
             ].map((item) => (
               <div key={item.step} className="space-y-3">

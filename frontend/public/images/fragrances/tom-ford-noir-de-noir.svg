@@ -1,21 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Cobalt Muse">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Noir de Noir">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#141f33"/>
-      <stop offset="1" stop-color="#0a101d"/>
+      <stop offset="0" stop-color="#2a1226"/>
+      <stop offset="1" stop-color="#160814"/>
     </linearGradient>
     <linearGradient id="bottle" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#5a71d8"/>
-      <stop offset="0.5" stop-color="#3c50b4"/>
-      <stop offset="1" stop-color="#243282"/>
+      <stop offset="0" stop-color="#c45580"/>
+      <stop offset="0.5" stop-color="#9a3663"/>
+      <stop offset="1" stop-color="#641f41"/>
     </linearGradient>
     <linearGradient id="cap" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#7688e6"/>
-      <stop offset="1" stop-color="#1c2770"/>
+      <stop offset="0" stop-color="#d97399"/>
+      <stop offset="1" stop-color="#541b37"/>
     </linearGradient>
     <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#8395ec" stop-opacity="0.35"/>
-      <stop offset="1" stop-color="#8395ec" stop-opacity="0"/>
+      <stop offset="0" stop-color="#e28bb0" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#e28bb0" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="400" height="400" rx="28" fill="url(#bg)"/>
@@ -25,7 +25,7 @@
   <rect x="160" y="156" width="80" height="52" fill="url(#cap)" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1.2"/>
   <rect x="142" y="110" width="116" height="54" rx="12" fill="url(#cap)" stroke="#ffffff" stroke-opacity="0.24" stroke-width="1.2"/>
   <rect x="142" y="110" width="116" height="18" rx="9" fill="#ffffff" opacity="0.18"/>
-  <rect x="143" y="262" width="114" height="64" rx="8" fill="#0a101d" opacity="0.85"/>
-  <rect x="143" y="262" width="114" height="64" rx="8" fill="none" stroke="#c6cff5" stroke-opacity="0.4" stroke-width="1"/>
-  <circle cx="200" cy="282" r="9" fill="#8395ec" opacity="0.8"/>
+  <rect x="143" y="262" width="114" height="64" rx="8" fill="#160814" opacity="0.85"/>
+  <rect x="143" y="262" width="114" height="64" rx="8" fill="none" stroke="#f3c4d6" stroke-opacity="0.4" stroke-width="1"/>
+  <circle cx="200" cy="282" r="9" fill="#e28bb0" opacity="0.8"/>
 </svg>

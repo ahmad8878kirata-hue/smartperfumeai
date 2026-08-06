@@ -9,15 +9,15 @@ app.config["SECRET_KEY"] = "smartperfume-secret-key-change-in-production"
 CORS(app)
 
 fragrances = [
-    {"id": "PF-001", "name": "Midnight Oud", "brand": "L'Artiste Digital", "ingredients": ["Oud", "Saffron", "Leather"], "price": 185.00},
-    {"id": "PF-002", "name": "Solaris Mist", "brand": "Neo-Olfactive", "ingredients": ["Bergamot", "Amber", "Sea Salt"], "price": 140.00},
-    {"id": "PF-003", "name": "Cipher Green", "brand": "Algorithm Scent", "ingredients": ["Vetiver", "Oakmoss", "Green Tea"], "price": 210.00},
-    {"id": "PF-004", "name": "Velvet Logic", "brand": "SmartPerfume AI", "ingredients": ["Rose", "Patchouli", "Vanilla"], "price": 245.00},
-    {"id": "PF-005", "name": "L'Essence C\u00e9leste", "brand": "SmartPerfume AI", "ingredients": ["Bergamot", "Oud", "Midnight Jasmine"], "price": 145.00},
-    {"id": "PF-006", "name": "Scarlet Hypothesis", "brand": "Maison Coda", "ingredients": ["Cinnamon", "Pink Pepper", "Amberwood"], "price": 175.00},
-    {"id": "PF-007", "name": "Noir Axiom", "brand": "Formule Noire", "ingredients": ["Black Pepper", "Incense", "Dark Vetiver"], "price": 230.00},
-    {"id": "PF-008", "name": "Aurum Bloom", "brand": "SmartPerfume AI", "ingredients": ["Neroli", "Honey", "White Cedar"], "price": 195.00},
-    {"id": "PF-009", "name": "Cobalt Muse", "brand": "Neo-Olfactive", "ingredients": ["Lavender", "Cardamom", "Cypress"], "price": 160.00},
+    {"id": "PF-001", "name": "Oud Wood", "brand": "Tom Ford", "ingredients": ["Cardamom", "Oud", "Sandalwood", "Vetiver", "Amber"], "price": 200.00},
+    {"id": "PF-002", "name": "Acqua di Gio", "brand": "Giorgio Armani", "ingredients": ["Bergamot", "Sea Notes", "Jasmine", "Cedar", "White Musk"], "price": 110.00},
+    {"id": "PF-003", "name": "Vetiver", "brand": "Guerlain", "ingredients": ["Vetiver", "Bergamot", "Tobacco", "Oakmoss"], "price": 85.00},
+    {"id": "PF-004", "name": "Noir de Noir", "brand": "Tom Ford", "ingredients": ["Rose", "Black Truffle", "Patchouli", "Vanilla", "Amber"], "price": 235.00},
+    {"id": "PF-005", "name": "Chanel No. 5", "brand": "Chanel", "ingredients": ["Aldehydes", "Jasmine", "Rose", "Sandalwood", "Vanilla"], "price": 140.00},
+    {"id": "PF-006", "name": "Spicebomb", "brand": "Viktor & Rolf", "ingredients": ["Cinnamon", "Pink Pepper", "Saffron", "Tobacco", "Amber"], "price": 110.00},
+    {"id": "PF-007", "name": "Interlude Man", "brand": "Amouage", "ingredients": ["Bergamot", "Black Pepper", "Incense", "Myrrh", "Oud"], "price": 250.00},
+    {"id": "PF-008", "name": "Colonia", "brand": "Acqua di Parma", "ingredients": ["Sicilian Citrus", "Neroli", "Lavender", "Rosemary", "Vetiver"], "price": 140.00},
+    {"id": "PF-009", "name": "Le Male", "brand": "Jean Paul Gaultier", "ingredients": ["Lavender", "Mint", "Cardamom", "Vanilla"], "price": 90.00},
 ]
 
 PRIMARY_GRID = {

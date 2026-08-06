@@ -66,7 +66,7 @@ export default function Login() {
       <main className="min-h-screen flex flex-col items-center justify-center px-margin-mobile md:px-margin-desktop py-24 relative z-10">
         <div className="mb-12 text-center">
           <h2 className="font-headline-md text-headline-md text-on-surface tracking-widest uppercase mb-2">
-            SmartPerfume AI
+            SmartPerfume
           </h2>
           <div className="h-px w-12 bg-secondary mx-auto opacity-50" />
         </div>
@@ -78,7 +78,7 @@ export default function Login() {
             <p className="font-body-md text-on-surface-variant opacity-80">
               {isRegistering
                 ? 'Create an account to unlock your personalized fragrance profile.'
-                : 'Refine your olfactory identity with computational precision.'}
+                : 'Refine your personal fragrance profile.'}
             </p>
           </div>
 
@@ -101,7 +101,7 @@ export default function Login() {
               </label>
               <input
                 className="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-body-md text-on-surface placeholder:text-on-surface-variant/30 transition-all duration-300 input-glow"
-                placeholder="perfumer@studio.ai"
+                placeholder="perfumer@example.com"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -158,10 +158,10 @@ export default function Login() {
         <div className="flex flex-col items-center justify-center space-y-8 px-margin-desktop max-w-container-max mx-auto">
           <div className="text-center">
             <span className="font-headline-md text-headline-md text-on-surface block mb-2">
-              SmartPerfume AI
+              SmartPerfume
             </span>
             <p className="font-body-md text-body-md text-on-surface-variant opacity-60">
-              &copy; 2024 SmartPerfume AI. The Art of Computational Olfaction.
+              &copy; 2024 SmartPerfume. The Art of Fine Fragrance.
             </p>
           </div>
           <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4">

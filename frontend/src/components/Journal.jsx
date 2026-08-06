@@ -1,35 +1,35 @@
 const articles = [
   {
-    title: 'The Science of Computational Olfaction',
-    excerpt: 'How machine learning is revolutionizing the way we understand and create fragrances, moving beyond traditional perfumery into data-driven scent design.',
+    title: 'The Science of Fine Fragrance',
+    excerpt: 'How modern science deepens our understanding of fragrance, moving beyond traditional perfumery into refined scent design.',
     date: 'June 2026',
     icon: 'science',
-    tags: ['AI', 'Research', 'Olfaction'],
+    tags: ['Research', 'Science', 'Fragrance'],
   },
   {
-    title: 'Behind the Algorithm: How Your Scent Profile is Built',
-    excerpt: 'A deep dive into the machine learning model that analyzes your preferences and maps them to molecular structures for your perfect fragrance.',
+    title: 'Behind the Scenes: How Your Scent Profile is Built',
+    excerpt: 'A look at how your preferences shape the perfect fragrance, from first impression to final blend.',
     date: 'May 2026',
     icon: 'psychology',
-    tags: ['Technology', 'AI', 'Personalization'],
+    tags: ['Technology', 'Personalization'],
   },
   {
-    title: 'Sustainable Luxury: Ethical Sourcing in the AI Era',
-    excerpt: 'How SmartPerfume combines computational precision with ethical sourcing to create sustainable, cruelty-free fragrances without compromising quality.',
+    title: 'Sustainable Luxury: Ethical Sourcing for Modern Fragrance',
+    excerpt: 'How SmartPerfume combines expert craftsmanship with ethical sourcing to create sustainable, cruelty-free fragrances without compromising quality.',
     date: 'April 2026',
     icon: 'eco',
     tags: ['Sustainability', 'Ethics', 'Luxury'],
   },
   {
     title: 'The Psychology of Scent: Why Fragrance Matters',
-    excerpt: 'Exploring the deep connection between olfactory perception, memory, emotion, and how AI can help create fragrances that resonate on a personal level.',
+    excerpt: 'Exploring the deep connection between scent, memory, and emotion, and how they shape the fragrances that resonate with us on a personal level.',
     date: 'March 2026',
     icon: 'psychology',
     tags: ['Psychology', 'Wellness', 'Science'],
   },
   {
-    title: 'From Data to Bottle: The Making of a Computational Fragrance',
-    excerpt: 'Follow the journey of a SmartPerfume AI fragrance from initial data collection through molecular synthesis to the final bottled product.',
+    title: 'From Inspiration to Bottle: The Making of a Signature Fragrance',
+    excerpt: 'Follow the journey of a SmartPerfume fragrance from initial inspiration through careful blending to the final bottled product.',
     date: 'February 2026',
     icon: 'precision_manufacturing',
     tags: ['Behind the Scenes', 'Technology', 'Process'],
@@ -41,7 +41,7 @@ export default function Journal() {
     <div className="px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto">
       <div className="mb-10">
         <h1 className="font-headline-lg text-headline-lg text-on-surface mb-2">Scent Journal</h1>
-        <p className="font-body-lg text-body-lg text-on-surface-variant">Insights, research, and stories from the world of computational olfaction.</p>
+        <p className="font-body-lg text-body-lg text-on-surface-variant">Insights, research, and stories from the world of fragrance.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">

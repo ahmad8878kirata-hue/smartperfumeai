@@ -31,7 +31,7 @@ export default function Collection() {
 
       <div className="mb-10">
         <h1 className="font-headline-lg text-headline-lg text-on-surface mb-2">Fragrance Collection</h1>
-        <p className="font-body-lg text-body-lg text-on-surface-variant">Browse our AI-curated selection of computational fragrances.</p>
+        <p className="font-body-lg text-body-lg text-on-surface-variant">Browse our curated selection of fine fragrances.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">

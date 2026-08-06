@@ -7,15 +7,15 @@ export default function PlaceholderPage() {
   const data = {
     collection: {
       icon: 'inventory_2',
-      desc: 'Browse our curated collection of AI-designed fragrances.',
+      desc: 'Browse our curated collection of fine fragrances.',
     },
     journal: {
       icon: 'menu_book',
-      desc: 'Read about the science of computational olfaction and fragrance insights.',
+      desc: 'Read about the art and science of fine fragrance.',
     },
     about: {
       icon: 'info',
-      desc: 'Learn about SmartPerfume AI and our mission to revolutionize fragrance.',
+      desc: 'Learn about SmartPerfume and our mission to craft fine fragrance.',
     },
     cart: {
       icon: 'shopping_bag',

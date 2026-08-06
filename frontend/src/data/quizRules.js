@@ -95,5 +95,5 @@ export function describeFragrance(f) {
   if (f.description) return f.description
   return `${f.name} is a ${f.notes.toLowerCase()} composition by ${f.brand}, crafted with ${f.ingredients.join(
     ', '
-  )} to suit your unique sensory profile.`
+  )} to suit your unique preferences.`
 }

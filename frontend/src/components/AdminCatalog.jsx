@@ -274,10 +274,10 @@ export default function AdminCatalog() {
               </h2>
               <p className="text-on-surface-variant max-w-lg">
                 {activeView === 'dashboard'
-                  ? 'An overview of your digital olfactory library.'
+                  ? 'An overview of your digital fragrance library.'
                   : activeView === 'cart'
                     ? 'Live requests from shoppers as they add fragrances to their carts.'
-                    : 'Manage your digital olfactory library. Refine scent profiles and oversee computational ingredients for SmartPerfume AI.'}
+                    : 'Manage your digital fragrance library. Refine scent profiles and oversee ingredients for SmartPerfume.'}
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto">
@@ -407,9 +407,9 @@ export default function AdminCatalog() {
         </div>
 
         <footer className="w-full py-12 border-t border-outline-variant/20 bg-surface-dim flex flex-col items-center justify-center space-y-base px-margin-desktop">
-          <div className="font-headline-md text-headline-md text-on-surface">SmartPerfume AI</div>
+          <div className="font-headline-md text-headline-md text-on-surface">SmartPerfume</div>
           <p className="text-on-surface-variant font-body-md text-body-md">
-            &copy; 2026 SmartPerfume AI. The Art of Computational Olfaction.
+            &copy; 2026 SmartPerfume. The Art of Fine Fragrance.
           </p>
         </footer>
       </main>

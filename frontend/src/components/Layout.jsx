@@ -20,7 +20,7 @@ export default function Layout({ children }) {
       <nav className="w-full top-0 sticky z-50 bg-surface-container/60 backdrop-blur-3xl border-b border-on-surface/10">
         <div className="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
           <Link to="/home" className="font-headline-md text-headline-md text-on-surface tracking-tight cursor-pointer">
-            SmartPerfume AI
+            SmartPerfume
           </Link>
           <div className="hidden md:flex items-center space-x-10">
             {navLinks.map((link) => {
@@ -81,9 +81,9 @@ export default function Layout({ children }) {
       <footer className="w-full py-12 bg-surface-dim border-t border-outline-variant/20">
         <div className="flex flex-col items-center justify-center space-y-8 px-margin-desktop max-w-container-max mx-auto">
           <div className="text-center">
-            <span className="font-headline-md text-headline-md text-on-surface block mb-2">SmartPerfume AI</span>
+            <span className="font-headline-md text-headline-md text-on-surface block mb-2">SmartPerfume</span>
             <p className="font-body-md text-body-md text-on-surface-variant opacity-60">
-              &copy; 2024 SmartPerfume AI. The Art of Computational Olfaction.
+              &copy; 2024 SmartPerfume. The Art of Fine Fragrance.
             </p>
           </div>
           <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4">

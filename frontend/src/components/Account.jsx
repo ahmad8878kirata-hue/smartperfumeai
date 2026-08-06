@@ -125,9 +125,9 @@ export default function Account() {
           <div className="space-y-6">
             <div className="glass-card rounded-xl p-8 text-center">
               <span className="material-symbols-outlined text-5xl text-secondary-fixed opacity-50 mb-4">auto_awesome</span>
-              <h3 className="font-headline-md text-headline-md text-on-surface mb-2">Digital Advisor</h3>
+              <h3 className="font-headline-md text-headline-md text-on-surface mb-2">Personal Match</h3>
               <p className="font-body-md text-body-md text-on-surface-variant mb-4">
-                Your AI scent profile is active and ready.
+                Your scent profile is active and ready.
               </p>
               <button
                 onClick={() => navigate('/quiz')}

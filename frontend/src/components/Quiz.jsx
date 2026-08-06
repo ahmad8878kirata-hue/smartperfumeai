@@ -122,7 +122,7 @@ export default function Quiz() {
               {question.question}
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant/80 max-w-xl mx-auto">
-              Your choice helps our AI model the emotional and sensory landscape of your bespoke fragrance.
+              Your choice helps us tailor a bespoke fragrance to your taste.
             </p>
           </div>
 
