@@ -407,9 +407,15 @@ export default function AdminCatalog() {
         </div>
 
         <footer className="w-full py-12 border-t border-outline-variant/20 bg-surface-dim flex flex-col items-center justify-center space-y-base px-margin-desktop">
+<<<<<<< HEAD
           <div className="font-headline-md text-headline-md text-on-surface">SmartParfum</div>
           <p className="text-on-surface-variant font-body-md text-body-md">
             &copy; 2026 SmartParfum.
+=======
+          <div className="font-headline-md text-headline-md text-on-surface">SmartPerfume</div>
+          <p className="text-on-surface-variant font-body-md text-body-md">
+            &copy; 2026 SmartPerfume. The Art of Fine Fragrance.
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
           </p>
         </footer>
       </main>

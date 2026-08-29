@@ -7,7 +7,11 @@ export default function Account() {
   const navigate = useNavigate()
   const { logout: authLogout } = useAuth()
   const { surveyDone } = useSurvey()
+<<<<<<< HEAD
   const { totalItems } = useCart()
+=======
+  const { items, totalItems } = useCart()
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
 
   const handleLogout = () => {
     authLogout()
@@ -18,7 +22,11 @@ export default function Account() {
     <div className="min-h-[70vh] px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto">
       <div className="mb-10">
         <h1 className="font-headline-lg text-headline-lg text-on-surface mb-2">My Account</h1>
+<<<<<<< HEAD
         <p className="font-body-lg text-body-lg text-on-surface-variant">Manage your fragrance preferences and recommendations.</p>
+=======
+        <p className="font-body-lg text-body-lg text-on-surface-variant">Manage your scent profile and preferences.</p>
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
       </div>
 
       {!surveyDone && (
@@ -26,7 +34,11 @@ export default function Account() {
           <span className="material-symbols-outlined text-7xl text-on-surface-variant opacity-30 mb-4">account_circle</span>
           <h2 className="font-headline-md text-headline-md text-on-surface mb-2">Guest Mode</h2>
           <p className="font-body-md text-body-md text-on-surface-variant mb-6 max-w-md mx-auto">
+<<<<<<< HEAD
             Sign in or complete the scent quiz to receive your fragrance recommendation.
+=======
+            Sign in or complete the scent survey to unlock your personalized account dashboard.
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
           </p>
           <div className="flex gap-4 justify-center">
             <button
@@ -39,7 +51,11 @@ export default function Account() {
               onClick={() => navigate('/quiz')}
               className="px-8 py-3 rounded-lg bg-secondary text-on-secondary font-label-caps text-label-caps hover:opacity-90 transition-all shadow-lg active:scale-95"
             >
+<<<<<<< HEAD
               Start Scent Quiz
+=======
+              Complete Survey
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
             </button>
           </div>
         </div>
@@ -54,8 +70,13 @@ export default function Account() {
                   <span className="material-symbols-outlined text-3xl text-secondary-fixed">account_circle</span>
                 </div>
                 <div>
+<<<<<<< HEAD
                   <h2 className="font-headline-md text-headline-md text-on-surface">My Scent Profile</h2>
                   <p className="font-body-md text-body-md text-on-surface-variant">Quiz Status: Completed</p>
+=======
+                  <h2 className="font-headline-md text-headline-md text-on-surface">Perfume Enthusiast</h2>
+                  <p className="font-body-md text-body-md text-on-surface-variant">Scent Profile: Active</p>
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-4">
@@ -95,6 +116,24 @@ export default function Account() {
                     READY
                   </span>
                 </div>
+<<<<<<< HEAD
+=======
+                <div className="flex items-center justify-between p-4 rounded-lg bg-surface-container-highest/20">
+                  <div className="flex items-center gap-3">
+                    <span className={`material-symbols-outlined ${items.length > 0 ? 'text-secondary-fixed' : 'text-on-surface-variant'}`}>
+                      {items.length > 0 ? 'check_circle' : 'radio_button_unchecked'}
+                    </span>
+                    <span className="font-body-md text-body-md text-on-surface">Add to Collection</span>
+                  </div>
+                  <span className={`px-3 py-1 rounded-full font-label-caps text-[10px] border ${
+                    items.length > 0
+                      ? 'bg-secondary-fixed/10 text-secondary-fixed border-secondary-fixed/20'
+                      : 'bg-surface-container-highest text-on-surface-variant border-outline-variant/20'
+                  }`}>
+                    {items.length > 0 ? `${items.length} ITEM${items.length > 1 ? 'S' : ''}` : 'PENDING'}
+                  </span>
+                </div>
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
               </div>
               <div className="mt-6 pt-6 border-t border-outline-variant/10">
                 <button
@@ -112,7 +151,11 @@ export default function Account() {
               <span className="material-symbols-outlined text-5xl text-secondary-fixed opacity-50 mb-4">auto_awesome</span>
               <h3 className="font-headline-md text-headline-md text-on-surface mb-2">Personal Match</h3>
               <p className="font-body-md text-body-md text-on-surface-variant mb-4">
+<<<<<<< HEAD
                  Your quiz is complete and your fragrance recommendation is ready.
+=======
+                Your scent profile is active and ready.
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
               </p>
               <button
                 onClick={() => navigate('/quiz')}

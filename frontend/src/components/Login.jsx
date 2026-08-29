@@ -32,7 +32,19 @@ export default function Login() {
       login(data.user.email, data.token)
       setMessage({ type: 'success', text: isRegistering ? 'Account created! Redirecting...' : 'Signed in! Redirecting...' })
 
+<<<<<<< HEAD
       setTimeout(() => navigate('/home'), 800)
+=======
+      if (!isRegistering) {
+        setTimeout(() => navigate('/home'), 800)
+      } else {
+        setTimeout(() => {
+          setIsRegistering(false)
+          setMessage(null)
+          setPassword('')
+        }, 1200)
+      }
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
     } catch {
       setMessage({ type: 'error', text: 'Connection error. Please try again.' })
     }
@@ -58,19 +70,32 @@ export default function Login() {
       <main className="min-h-screen flex flex-col items-center justify-center px-margin-mobile md:px-margin-desktop py-24 relative z-10">
         <div className="mb-12 text-center">
           <h2 className="font-headline-md text-headline-md text-on-surface tracking-widest uppercase mb-2">
+<<<<<<< HEAD
             SmartParfum
+=======
+            SmartPerfume
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
           </h2>
           <div className="h-px w-12 bg-secondary mx-auto opacity-50" />
         </div>
         <div className="glass-card w-full max-w-md p-8 md:p-12 rounded-xl transition-all duration-500 hover:border-on-surface/20">
           <div className="text-center mb-10">
             <h1 className="font-headline-lg text-headline-lg text-on-surface mb-4 leading-tight">
+<<<<<<< HEAD
               {isRegistering ? 'Create Your Account' : 'Welcome Back'}
             </h1>
             <p className="font-body-md text-on-surface-variant opacity-80">
               {isRegistering
                 ? 'Create an account to save your preferences and access your fragrance recommendations.'
                 : 'Sign in to access your fragrance recommendations and preferences.'}
+=======
+              {isRegistering ? 'Begin Your Scent Journey' : 'Welcome Back to Your Scent Journey'}
+            </h1>
+            <p className="font-body-md text-on-surface-variant opacity-80">
+              {isRegistering
+                ? 'Create an account to unlock your personalized fragrance profile.'
+                : 'Refine your personal fragrance profile.'}
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
             </p>
           </div>
 
@@ -93,7 +118,11 @@ export default function Login() {
               </label>
               <input
                 className="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-body-md text-on-surface placeholder:text-on-surface-variant/30 transition-all duration-300 input-glow"
+<<<<<<< HEAD
                 placeholder="name@example.com"
+=======
+                placeholder="perfumer@example.com"
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -102,7 +131,11 @@ export default function Login() {
             </div>
             <div className="relative group">
               <label className="font-label-caps text-label-caps text-on-tertiary-container tracking-[0.2em] uppercase block mb-2">
+<<<<<<< HEAD
                 Password
+=======
+                Security Key
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
               </label>
               <input
                 className="w-full bg-transparent border-0 border-b border-outline-variant/30 py-3 text-body-md text-on-surface placeholder:text-on-surface-variant/30 transition-all duration-300 input-glow"
@@ -150,12 +183,40 @@ export default function Login() {
         <div className="flex flex-col items-center justify-center space-y-8 px-margin-desktop max-w-container-max mx-auto">
           <div className="text-center">
             <span className="font-headline-md text-headline-md text-on-surface block mb-2">
+<<<<<<< HEAD
               SmartParfum
             </span>
             <p className="font-body-md text-body-md text-on-surface-variant opacity-60">
               &copy; 2026 SmartParfum.
             </p>
           </div>
+=======
+              SmartPerfume
+            </span>
+            <p className="font-body-md text-body-md text-on-surface-variant opacity-60">
+              &copy; 2024 SmartPerfume. The Art of Fine Fragrance.
+            </p>
+          </div>
+          <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4">
+            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors opacity-100 hover:opacity-80" href="#">
+              Privacy Policy
+            </a>
+            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors opacity-100 hover:opacity-80" href="#">
+              Terms of Service
+            </a>
+            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors opacity-100 hover:opacity-80" href="#">
+              Scent Science
+            </a>
+            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors opacity-100 hover:opacity-80" href="#">
+              Contact
+            </a>
+          </nav>
+          <div className="flex items-center gap-1">
+            <div className="h-1 w-1 rounded-full bg-secondary-container" />
+            <div className="h-1 w-8 rounded-full bg-secondary-container/30" />
+            <div className="h-1 w-1 rounded-full bg-secondary-container" />
+          </div>
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
         </div>
       </footer>
     </div>

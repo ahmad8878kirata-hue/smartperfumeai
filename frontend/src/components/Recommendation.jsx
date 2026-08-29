@@ -52,6 +52,7 @@ export default function Recommendation() {
         <section className="relative z-10 pt-20 pb-12 px-margin-desktop text-center max-w-container-max mx-auto">
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 glass-card rounded-full mb-8">
             <span className="material-symbols-outlined text-secondary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
+<<<<<<< HEAD
             <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Your Recommendation</span>
           </div>
           <h1 className="font-headline-display text-headline-display mb-6 leading-tight">
@@ -61,6 +62,17 @@ export default function Recommendation() {
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto opacity-80">
             Based on your quiz answers, SmartParfum selected a fragrance that
             matches your personal preferences.
+=======
+            <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Signature Match</span>
+          </div>
+          <h1 className="font-headline-display text-headline-display mb-6 leading-tight">
+            Your Perfect Match:<br />
+            <span className="text-secondary-fixed italic">A scent tailored to your personality.</span>
+          </h1>
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto opacity-80">
+            Based on your preferences and personality, we&apos;ve crafted a fragrance that
+            resonates with your core identity.
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
           </p>
         </section>
 
@@ -77,7 +89,11 @@ export default function Recommendation() {
                 )}
               </div>
               <div className="absolute top-8 left-8 glass-card px-4 py-2 rounded-lg border border-secondary/20">
+<<<<<<< HEAD
                 <span className="font-label-caps text-label-caps text-on-surface">Recommended Fragrance No. {product.id.replace(/\D/g, '')}</span>
+=======
+                <span className="font-label-caps text-label-caps text-on-surface">Signature Blend No. {product.id.replace(/\D/g, '')}</span>
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
               </div>
             </div>
             <div className="lg:col-span-5 flex flex-col justify-between p-12 rounded-2xl glass-card relative overflow-hidden">
@@ -87,7 +103,11 @@ export default function Recommendation() {
                 </button>
               </div>
               <div>
+<<<<<<< HEAD
                 <div className="font-label-caps text-label-caps text-secondary-fixed mb-4 tracking-[0.2em] uppercase">Recommended Fragrance</div>
+=======
+                <div className="font-label-caps text-label-caps text-secondary-fixed mb-4 tracking-[0.2em] uppercase">Signature Scent</div>
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
                 <h2 className="font-headline-lg text-headline-lg mb-4">{product.name}</h2>
                 <p className="font-label-caps text-label-caps text-on-surface-variant mb-6">{product.brand}</p>
                 <div className="flex items-center space-x-4 mb-8">
@@ -137,6 +157,7 @@ export default function Recommendation() {
           </div>
           <div className="mt-gutter grid grid-cols-1 md:grid-cols-3 gap-gutter">
             <div className="p-8 rounded-2xl glass-card group cursor-pointer hover:bg-surface-container-high transition-all">
+<<<<<<< HEAD
               <span className="material-symbols-outlined text-secondary mb-4">psychology</span>
               <h4 className="font-headline-md text-headline-md mb-2">Preference Match</h4>
               <p className="font-body-md text-body-md text-on-surface-variant">Your quiz answers are compared with the fragrance characteristics
@@ -153,6 +174,21 @@ export default function Recommendation() {
               <h4 className="font-headline-md text-headline-md mb-2">Why This Fragrance?</h4>
               <p className="font-body-md text-body-md text-on-surface-variant">This fragrance matches several of the preferences you selected
                 during the scent quiz.</p>
+=======
+              <span className="material-symbols-outlined text-secondary mb-4">science</span>
+              <h4 className="font-headline-md text-headline-md mb-2">Molecular Design</h4>
+              <p className="font-body-md text-body-md text-on-surface-variant">Every note is analyzed for its psychological impact on the wearer and those around them.</p>
+            </div>
+            <div className="p-8 rounded-2xl glass-card group cursor-pointer hover:bg-surface-container-high transition-all">
+              <span className="material-symbols-outlined text-secondary mb-4">eco</span>
+              <h4 className="font-headline-md text-headline-md mb-2">Sustainably Sourced</h4>
+              <p className="font-body-md text-body-md text-on-surface-variant">Our raw materials are ethically harvested from heritage estates across the globe.</p>
+            </div>
+            <div className="p-8 rounded-2xl glass-card group cursor-pointer hover:bg-surface-container-high transition-all">
+              <span className="material-symbols-outlined text-secondary mb-4">auto_awesome</span>
+              <h4 className="font-headline-md text-headline-md mb-2">Smart Scent Tech</h4>
+              <p className="font-body-md text-body-md text-on-surface-variant">Adaptive molecular release ensures your signature scent evolves gracefully throughout the day.</p>
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
             </div>
           </div>
         </section>

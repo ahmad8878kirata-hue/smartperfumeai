@@ -9,19 +9,31 @@ export default function Cart() {
     <div className="min-h-[70vh] px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto">
       <div className="mb-10">
         <h1 className="font-headline-lg text-headline-lg text-on-surface mb-2">Your Cart</h1>
+<<<<<<< HEAD
         <p className="font-body-lg text-body-lg text-on-surface-variant">Review your selected fragrances before continuing.</p>
+=======
+        <p className="font-body-lg text-body-lg text-on-surface-variant">Review your curated fragrance collection.</p>
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
       </div>
 
       {items.length === 0 && (
         <div className="glass-card rounded-xl p-12 text-center">
           <span className="material-symbols-outlined text-7xl text-on-surface-variant opacity-30 mb-4">shopping_bag</span>
           <h2 className="font-headline-md text-headline-md text-on-surface mb-2">Your Cart is Empty</h2>
+<<<<<<< HEAD
           <p className="font-body-md text-body-md text-on-surface-variant mb-6">Explore your recommended fragrance and add it to your cart.</p>
+=======
+          <p className="font-body-md text-body-md text-on-surface-variant mb-6">Explore your recommended fragrance and add it to your collection.</p>
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
           <Link
             to="/recommendation"
             className="inline-block bg-secondary text-on-secondary px-8 py-3 rounded-full font-label-caps text-label-caps hover:opacity-90 active:scale-95 transition-all shadow-lg"
           >
+<<<<<<< HEAD
             View Recommendation
+=======
+            View Your Scent
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
           </Link>
         </div>
       )}

@@ -1,6 +1,14 @@
 import { Link } from 'react-router-dom'
 import { useSurvey } from '../context/SurveyContext'
 
+<<<<<<< HEAD
+=======
+const team = [
+  { name: 'Dr. Elena Voss', role: 'Chief Science Officer', desc: 'Ph.D. in Chemistry, 15 years in fragrance research.' },
+  { name: 'Marcus Chen', role: 'Lead Perfumer', desc: 'Master perfumer blending traditional artistry with refined technique.' },
+  { name: 'Priya Kapoor', role: 'Head of Fragrance Design', desc: 'Specializing in molecular composition and fragrance development.' },
+]
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
 
 export default function About() {
   const { surveyDone } = useSurvey()
@@ -17,8 +25,13 @@ export default function About() {
           <span className="text-secondary-fixed italic">Fine Fragrance</span>
         </h1>
         <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto opacity-80">
+<<<<<<< HEAD
          SmartParfum helps users discover suitable fragrances through
           a simple scent quiz and a transparent rule-based recommendation system.
+=======
+          We are on a mission to democratize luxury fragrance,
+          making bespoke, expertly-crafted scents accessible to everyone.
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
         </p>
       </div>
 
@@ -27,26 +40,61 @@ export default function About() {
           <span className="material-symbols-outlined text-4xl text-secondary-fixed mb-4">flag</span>
           <h2 className="font-headline-lg text-headline-lg text-on-surface mb-4">Our Mission</h2>
           <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+<<<<<<< HEAD
              Our mission is to make fragrance selection easier and more understandable.
              SmartParfum collects personal preferences through an interactive scent quiz
              and uses a rule-based recommendation system to suggest perfumes that match
              the user's choices.
+=======
+            SmartPerfume combines the timeless art of perfumery with expert craftsmanship
+            to create personalized fragrances that adapt to your unique identity. Our perfumers
+            carefully consider your preferences to recommend the perfect scent -- something that was
+            once reserved for celebrity perfumers and luxury houses.
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
           </p>
         </div>
         <div className="glass-card rounded-2xl p-10">
           <span className="material-symbols-outlined text-4xl text-secondary-fixed mb-4">visibility</span>
           <h2 className="font-headline-lg text-headline-lg text-on-surface mb-4">Our Vision</h2>
           <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+<<<<<<< HEAD
             Our vision is to support customers during fragrance selection both online
             and in stores. SmartParfum provides a simple digital consultation that
             helps users make more confident decisions and can also support retailers
             during the sales process.
+=======
+            We envision a world where every individual can express their identity through a signature
+            fragrance designed specifically for them. By removing the barriers of traditional perfumery,
+            we make bespoke scent creation scalable, sustainable,
+            and accessible to all who seek personal expression.
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
           </p>
         </div>
       </div>
 
+<<<<<<< HEAD
       <div className="glass-card rounded-2xl p-12 md:p-16 text-center">
         <h2 className="font-headline-lg text-headline-lg text-on-surface mb-4">Ready to Find Your Scent?</h2>
+=======
+      <div className="mb-16">
+        <h2 className="font-headline-lg text-headline-lg text-on-surface mb-8 text-center">Our Team</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+          {team.map((m) => (
+            <div key={m.name} className="glass-card rounded-xl p-8 text-center hover:bg-surface-container-high transition-all">
+              <div className="w-20 h-20 mx-auto rounded-full bg-secondary-container/20 flex items-center justify-center mb-5">
+                <span className="material-symbols-outlined text-4xl text-secondary-fixed">person</span>
+              </div>
+              <h3 className="font-headline-md text-headline-md text-on-surface mb-1">{m.name}</h3>
+              <p className="font-label-caps text-label-caps text-secondary-fixed mb-3">{m.role}</p>
+              <p className="font-body-md text-body-md text-on-surface-variant text-sm">{m.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="glass-card rounded-2xl p-12 md:p-16 text-center">
+        <h2 className="font-headline-lg text-headline-lg text-on-surface mb-4">Ready to Find Your Signature Scent?</h2>
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
         <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl mx-auto mb-8">
           Discover a fragrance that truly represents you.
         </p>
@@ -56,7 +104,11 @@ export default function About() {
           </Link>
         ) : (
           <Link to="/quiz" className="inline-block bg-secondary text-on-secondary px-10 py-4 rounded-full font-label-caps text-label-caps hover:opacity-90 active:scale-95 transition-all shadow-xl shadow-secondary/20 text-lg tracking-widest uppercase">
+<<<<<<< HEAD
             Start Scent Quiz
+=======
+            Start Your Journey
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
           </Link>
         )}
       </div>

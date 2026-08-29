@@ -6,12 +6,21 @@ import { loadFragrances } from '../data/fragrances'
 
 const questions = [
   {
+<<<<<<< HEAD
     question: 'Which fragrance family do you prefer?',
     choices: [
       { label: 'Fresh', icon: 'spa', desc: 'Citrus, bergamot, sea notes and other bright, refreshing scents.' },
       { label: 'Woody', icon: 'forest', desc: 'Sandalwood, cedar, vetiver and other warm, earthy notes.' },
       { label: 'Floral', icon: 'local_florist', desc: 'Rose, jasmine and other soft or elegant floral notes.' },
       { label: 'Amber', icon: 'local_fire_department', desc: 'Warm spices, amber, vanilla and rich resinous notes' },
+=======
+    question: 'Which scent family resonates with you most today?',
+    choices: [
+      { label: 'Fresh', icon: 'lemon', desc: 'Bright citrus, sea salt, and crisp morning dew.' },
+      { label: 'Woody', icon: 'forest', desc: 'Sandalwood, cedar, and earthy vetiver notes.' },
+      { label: 'Oriental', icon: 'local_fire_department', desc: 'Rich spices, warm amber, and exotic resins.' },
+      { label: 'Sweet', icon: 'icecream', desc: 'Vanilla, tonka bean, and gourmand delights.' },
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
     ],
   },
   {
@@ -122,7 +131,11 @@ export default function Quiz() {
               {question.question}
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant/80 max-w-xl mx-auto">
+<<<<<<< HEAD
               Your answers help us find fragrances that match your preferences.
+=======
+              Your choice helps us tailor a bespoke fragrance to your taste.
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
             </p>
           </div>
 

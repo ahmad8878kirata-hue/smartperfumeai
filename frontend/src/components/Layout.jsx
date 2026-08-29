@@ -20,7 +20,11 @@ export default function Layout({ children }) {
       <nav className="w-full top-0 sticky z-50 bg-surface-container/60 backdrop-blur-3xl border-b border-on-surface/10">
         <div className="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
           <Link to="/home" className="font-headline-md text-headline-md text-on-surface tracking-tight cursor-pointer">
+<<<<<<< HEAD
             SmartParfum
+=======
+            SmartPerfume
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
           </Link>
           <div className="hidden md:flex items-center space-x-10">
             {navLinks.map((link) => {
@@ -62,14 +66,22 @@ export default function Layout({ children }) {
                 to="/recommendation"
                 className="bg-secondary text-on-secondary px-6 py-2 rounded-full font-label-caps text-label-caps hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-secondary/10"
               >
+<<<<<<< HEAD
                 view Recommendation
+=======
+                Your Scent
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
               </Link>
             ) : (
               <Link
                 to="/quiz"
                 className="bg-secondary text-on-secondary px-6 py-2 rounded-full font-label-caps text-label-caps hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-secondary/10"
               >
+<<<<<<< HEAD
                 Start Scent Quiz
+=======
+                Complete Survey
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
               </Link>
             )}
           </div>
@@ -81,11 +93,33 @@ export default function Layout({ children }) {
       <footer className="w-full py-12 bg-surface-dim border-t border-outline-variant/20">
         <div className="flex flex-col items-center justify-center space-y-8 px-margin-desktop max-w-container-max mx-auto">
           <div className="text-center">
+<<<<<<< HEAD
             <span className="font-headline-md text-headline-md text-on-surface block mb-2">SmartParfum</span>
             <p className="font-body-md text-body-md text-on-surface-variant opacity-60">
               &copy; 2026 SmartParfum.
             </p>
           </div>
+=======
+            <span className="font-headline-md text-headline-md text-on-surface block mb-2">SmartPerfume</span>
+            <p className="font-body-md text-body-md text-on-surface-variant opacity-60">
+              &copy; 2024 SmartPerfume. The Art of Fine Fragrance.
+            </p>
+          </div>
+          <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4">
+            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">
+              Privacy Policy
+            </a>
+            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">
+              Terms of Service
+            </a>
+            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">
+              Scent Science
+            </a>
+            <a className="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">
+              Contact
+            </a>
+          </nav>
+>>>>>>> 0f9c54c25f8b07a16c276911abeaf7b99b87addc
           <div className="flex items-center gap-1">
             <div className="h-1 w-1 rounded-full bg-secondary-container" />
             <div className="h-1 w-8 rounded-full bg-secondary-container/30" />
