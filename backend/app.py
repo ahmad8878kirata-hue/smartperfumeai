@@ -4,21 +4,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 import datetime
 
+import db
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "smartperfume-secret-key-change-in-production"
 CORS(app)
 
-fragrances = [
-    {"id": "PF-001", "name": "Oud Wood", "brand": "Tom Ford", "ingredients": ["Cardamom", "Oud", "Sandalwood", "Vetiver", "Amber"], "price": 200.00},
-    {"id": "PF-002", "name": "Acqua di Gio", "brand": "Giorgio Armani", "ingredients": ["Bergamot", "Sea Notes", "Jasmine", "Cedar", "White Musk"], "price": 110.00},
-    {"id": "PF-003", "name": "Vetiver", "brand": "Guerlain", "ingredients": ["Vetiver", "Bergamot", "Tobacco", "Oakmoss"], "price": 85.00},
-    {"id": "PF-004", "name": "Noir de Noir", "brand": "Tom Ford", "ingredients": ["Rose", "Black Truffle", "Patchouli", "Vanilla", "Amber"], "price": 235.00},
-    {"id": "PF-005", "name": "Chanel No. 5", "brand": "Chanel", "ingredients": ["Aldehydes", "Jasmine", "Rose", "Sandalwood", "Vanilla"], "price": 140.00},
-    {"id": "PF-006", "name": "Spicebomb", "brand": "Viktor & Rolf", "ingredients": ["Cinnamon", "Pink Pepper", "Saffron", "Tobacco", "Amber"], "price": 110.00},
-    {"id": "PF-007", "name": "Interlude Man", "brand": "Amouage", "ingredients": ["Bergamot", "Black Pepper", "Incense", "Myrrh", "Oud"], "price": 250.00},
-    {"id": "PF-008", "name": "Colonia", "brand": "Acqua di Parma", "ingredients": ["Sicilian Citrus", "Neroli", "Lavender", "Rosemary", "Vetiver"], "price": 140.00},
-    {"id": "PF-009", "name": "Le Male", "brand": "Jean Paul Gaultier", "ingredients": ["Lavender", "Mint", "Cardamom", "Vanilla"], "price": 90.00},
-]
+db.init_db()
 
 PRIMARY_GRID = {
     "Fresh": {"Energetic": "PF-002", "Romantic": "PF-008", "Mysterious": "PF-003", "Serene": "PF-009"},
@@ -64,8 +56,6 @@ def recommend_fragrance_id(answers):
             best_id, best_dist = fid, dist
     return best_id
 
-users = []
-
 
 def token_for(email):
     return jwt.encode(
@@ -89,10 +79,10 @@ def register():
     password = data.get("password", "")
     if not email or not password:
         return jsonify({"error": "Email and password are required"}), 400
-    if any(u["email"] == email for u in users):
+    if db.get_user(email):
         return jsonify({"error": "An account with this email already exists"}), 409
     hashed = generate_password_hash(password)
-    users.append({"email": email, "password": hashed})
+    db.add_user(email, hashed)
     return jsonify({"token": token_for(email), "user": {"email": email}}), 201
 
 
@@ -105,7 +95,7 @@ def login():
     password = data.get("password", "")
     if not email or not password:
         return jsonify({"error": "Email and password are required"}), 400
-    user = next((u for u in users if u["email"] == email), None)
+    user = db.get_user(email)
     if not user or not check_password_hash(user["password"], password):
         return jsonify({"error": "Invalid email or password"}), 401
     return jsonify({"token": token_for(email), "user": {"email": email}})
@@ -115,14 +105,8 @@ def login():
 def get_fragrances():
     search = request.args.get("search", "").lower()
     if search:
-        filtered = [
-            f for f in fragrances
-            if search in f["name"].lower()
-            or search in f["brand"].lower()
-            or any(search in i.lower() for i in f["ingredients"])
-        ]
-        return jsonify(filtered)
-    return jsonify(fragrances)
+        return jsonify(db.search_fragrances(search))
+    return jsonify(db.get_all_fragrances())
 
 
 @app.route("/api/fragrances", methods=["POST"])
@@ -130,22 +114,13 @@ def add_fragrance():
     data = request.get_json()
     if not data or not data.get("name"):
         return jsonify({"error": "Name is required"}), 400
-    new_id = f"PF-{len(fragrances) + 1:03d}"
-    fragrance = {
-        "id": new_id,
-        "name": data["name"],
-        "brand": data.get("brand", ""),
-        "ingredients": data.get("ingredients", []),
-        "price": data.get("price", 0),
-    }
-    fragrances.append(fragrance)
+    fragrance = db.add_fragrance(data)
     return jsonify(fragrance), 201
 
 
 @app.route("/api/fragrances/<fragrance_id>", methods=["DELETE"])
 def delete_fragrance(fragrance_id):
-    global fragrances
-    fragrances = [f for f in fragrances if f["id"] != fragrance_id]
+    db.delete_fragrance(fragrance_id)
     return jsonify({"message": "Deleted"}), 200
 
 
@@ -154,13 +129,10 @@ def submit_quiz():
     data = request.get_json() or {}
     answers = data.get("answers", {})
     rec_id = recommend_fragrance_id(answers)
-    rec = next((f for f in fragrances if f["id"] == rec_id), None)
+    rec = db.get_fragrance(rec_id) if rec_id else None
     if rec is None:
         rec = {"name": "L'Essence C\u00e9leste", "price": 145.00, "ingredients": ["Bergamot", "Oud", "Midnight Jasmine"], "description": "A sophisticated blend designed for the visionary."}
     return jsonify({"message": "Quiz submitted", "recommendation": rec})
-
-
-user_carts = {}
 
 
 def get_email_from_token():
@@ -188,8 +160,7 @@ def require_auth(f):
 @app.route("/api/cart", methods=["GET"])
 @require_auth
 def get_cart(email):
-    cart = user_carts.get(email, [])
-    return jsonify(cart)
+    return jsonify(db.get_cart(email))
 
 
 @app.route("/api/cart", methods=["POST"])
@@ -198,34 +169,21 @@ def add_to_cart(email):
     data = request.get_json()
     if not data or not data.get("id"):
         return jsonify({"error": "Product id is required"}), 400
-    if email not in user_carts:
-        user_carts[email] = []
-    existing = next((i for i in user_carts[email] if i["id"] == data["id"]), None)
-    if existing:
-        existing["qty"] = existing.get("qty", 1) + data.get("qty", 1)
-    else:
-        user_carts[email].append({
-            "id": data["id"],
-            "name": data.get("name", ""),
-            "brand": data.get("brand", ""),
-            "price": data.get("price", 0),
-            "qty": data.get("qty", 1),
-        })
-    return jsonify({"message": "Added to cart", "cart": user_carts[email]}), 201
+    db.add_to_cart(email, data)
+    return jsonify({"message": "Added to cart", "cart": db.get_cart(email)}), 201
 
 
 @app.route("/api/cart/<product_id>", methods=["DELETE"])
 @require_auth
 def remove_from_cart(email, product_id):
-    if email in user_carts:
-        user_carts[email] = [i for i in user_carts[email] if i["id"] != product_id]
-    return jsonify({"message": "Removed from cart", "cart": user_carts.get(email, [])})
+    db.remove_from_cart(email, product_id)
+    return jsonify({"message": "Removed from cart", "cart": db.get_cart(email)})
 
 
 @app.route("/api/cart", methods=["DELETE"])
 @require_auth
 def clear_cart(email):
-    user_carts[email] = []
+    db.clear_cart(email)
     return jsonify({"message": "Cart cleared"})
 
 
@@ -233,17 +191,10 @@ def clear_cart(email):
 @require_auth
 def update_cart_item(email, product_id):
     data = request.get_json()
-    if email not in user_carts:
-        return jsonify({"error": "Cart not found"}), 404
-    item = next((i for i in user_carts[email] if i["id"] == product_id), None)
-    if not item:
+    if not any(i["id"] == product_id for i in db.get_cart(email)):
         return jsonify({"error": "Item not found"}), 404
-    qty = data.get("qty", 1)
-    if qty <= 0:
-        user_carts[email] = [i for i in user_carts[email] if i["id"] != product_id]
-    else:
-        item["qty"] = qty
-    return jsonify({"message": "Updated", "cart": user_carts[email]})
+    db.update_cart_qty(email, product_id, data.get("qty", 1))
+    return jsonify({"message": "Updated", "cart": db.get_cart(email)})
 
 
 ADMIN_USERNAME = "admin"
@@ -289,8 +240,7 @@ def admin_login():
 @app.route("/api/admin/carts", methods=["GET"])
 @require_admin
 def admin_carts():
-    carts = [{"email": email, "items": items} for email, items in user_carts.items()]
-    return jsonify(carts)
+    return jsonify(db.get_all_carts())
 
 
 if __name__ == "__main__":

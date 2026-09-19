@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+smartperfume.db
+smartperfume.db-journal
+smartperfume.db-wal
+smartperfume.db-shm

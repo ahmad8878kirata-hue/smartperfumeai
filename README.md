@@ -66,6 +66,7 @@ Think of it as a **personalized perfume shop** — you tell us what you like, we
 | Flask-CORS | 5.0.0 | Cross-origin resource sharing |
 | PyJWT | 2.9.0 | JSON Web Token authentication |
 | Werkzeug | (bundled) | Password hashing |
+| SQLite | (stdlib `sqlite3`) | Persistent database storage |
 
 ### Styling
 - Custom Material Design 3-inspired dark theme
@@ -81,8 +82,9 @@ Think of it as a **personalized perfume shop** — you tell us what you like, we
 smartperfumeai/
 ├── backend/
 │   ├── app.py                  # Flask REST API server
+│   ├── db.py                   # SQLite schema, seed data, and queries
 │   ├── requirements.txt        # Python dependencies
-│   └── models/                 # Empty (no database yet)
+│   └── smartperfume.db         # SQLite database (created on first run)
 │
 └── frontend/
     ├── index.html
@@ -278,7 +280,7 @@ curl http://localhost:5000/api/fragrances?search=oud
 
 ## Environment Notes
 
-- **No database** — All data (fragrances, users, carts) is stored in memory on the Flask server. Data is lost when the server restarts.
+- **SQLite database** — All data (fragrances, users, carts) is stored in `backend/smartperfume.db`, a persistent SQLite database created and seeded automatically on first run. The catalog is seeded with the 9 default fragrances if the database is empty.
 - **JWT tokens** — Expire after 1 day. Stored in browser `localStorage` via `AuthContext`.
 - **Quiz state** — Tracked via `SurveyContext` and persisted in `localStorage` per user. The quiz must be completed before accessing the Recommendation, Cart, and Collection features.
 - **API proxy** — In development, Vite proxies `/api` requests to `http://localhost:5000`. This is configured in `frontend/vite.config.js`.
