@@ -4,3 +4,6 @@ smartperfume.db
 smartperfume.db-journal
 smartperfume.db-wal
 smartperfume.db-shm
+smartperfume.db.pre-migrate
+smartperfume.db.v1-backup
+.env

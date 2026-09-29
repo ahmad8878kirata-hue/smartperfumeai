@@ -24,6 +24,7 @@ Think of it as a **personalized perfume shop** — you tell us what you like, we
 - [Running the Project](#running-the-project)
 - [API Endpoints](#api-endpoints)
 - [Pages and Routes](#pages-and-routes)
+- [Database Schema](#database-schema)
 - [Environment Notes](#environment-notes)
 
 ---
@@ -83,6 +84,7 @@ smartperfumeai/
 ├── backend/
 │   ├── app.py                  # Flask REST API server
 │   ├── db.py                   # SQLite schema, seed data, and queries
+│   ├── migrate.py              # v1 -> v2 schema migration (idempotent)
 │   ├── requirements.txt        # Python dependencies
 │   └── smartperfume.db         # SQLite database (created on first run)
 │
@@ -100,6 +102,9 @@ smartperfumeai/
         │   ├── AuthContext.jsx     # Authentication state
         │   ├── CartContext.jsx     # Shopping cart state
         │   └── SurveyContext.jsx   # Quiz completion state
+        ├── data/
+        │   ├── fragrances.js       # Local catalog + storage helpers
+        │   └── quizRules.js        # Client-side recommendation engine
         └── components/
             ├── Layout.jsx          # Shared nav + footer
             ├── Login.jsx           # Login/Register page
@@ -172,6 +177,10 @@ The application requires **two terminals** — one for the backend and one for t
 
 ```bash
 cd backend
+
+# If you have a database created before schema v2, migrate it first:
+python migrate.py
+
 python app.py
 ```
 
@@ -182,6 +191,32 @@ You should see output like:
  * Running on http://127.0.0.1:5000
  * Debug mode: on
 ```
+
+### Configuring the admin account
+
+Admin is a real row in the `users` table with `role = 'admin'`. It is provisioned
+from environment variables on every startup — there is no hardcoded default.
+
+```bash
+# PowerShell
+$env:SMARTPERFUME_ADMIN_EMAIL    = "boss@example.com"
+$env:SMARTPERFUME_ADMIN_PASSWORD = "choose-a-strong-password"
+
+# macOS / Linux
+export SMARTPERFUME_ADMIN_EMAIL="boss@example.com"
+export SMARTPERFUME_ADMIN_PASSWORD="choose-a-strong-password"
+```
+
+If either variable is unset the server still starts, but admin login is disabled
+and a warning is printed. Setting the variables again re-provisions (rotates) the
+admin password.
+
+| Variable | Purpose | Default |
+|---|---|---|
+| `SMARTPERFUME_SECRET_KEY` | JWT signing key | insecure dev fallback |
+| `SMARTPERFUME_ADMIN_EMAIL` | Email of the provisioned admin | none |
+| `SMARTPERFUME_ADMIN_PASSWORD` | Password for that admin | none |
+| `SMARTPERFUME_DB` | Path to the SQLite file | `smartperfume.db` |
 
 ### Terminal 2: Start the Frontend (React + Vite)
 
@@ -217,13 +252,21 @@ The Vite dev server automatically proxies all `/api` requests to the Flask backe
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/health` | Health check — returns `{"status": "ok"}` |
+| `GET` | `/api/health` | Health check — returns `{"status": "ok", "schema_version": 2}` |
 | `POST` | `/api/register` | Register a new user (email + password) |
 | `POST` | `/api/login` | Log in and receive a JWT token |
-| `GET` | `/api/fragrances` | List all fragrances (supports `?search=` query) |
-| `POST` | `/api/fragrances` | Add a new fragrance to the catalog |
-| `DELETE` | `/api/fragrances/<id>` | Delete a fragrance by ID |
+| `GET` | `/api/fragrances` | List all fragrances (supports `?search=`) |
 | `POST` | `/api/quiz/submit` | Submit quiz answers, returns recommendation |
+| `POST` | `/api/admin/login` | Admin login (requires an account with `role = admin`) |
+
+### Admin Endpoints (JWT with `role: "admin"` required)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/admin/carts` | Every user's cart, ordered by email |
+| `POST` | `/api/fragrances` | Add a new fragrance to the catalog |
+| `PATCH` | `/api/fragrances/<id>` | Update name, brand, price, notes, rating, image, ingredients |
+| `DELETE` | `/api/fragrances/<id>` | Delete a fragrance (cascades to notes and carts) |
 
 ### Protected Endpoints (JWT Bearer Token Required)
 
@@ -278,12 +321,90 @@ curl http://localhost:5000/api/fragrances?search=oud
 
 ---
 
+## Database Schema
+
+Schema **v2**. Tables are created with `STRICT` typing, foreign keys are enforced
+(`PRAGMA foreign_keys = ON` on every connection), and money is stored as integer
+cents to avoid floating-point drift.
+
+```mermaid
+erDiagram
+  USERS ||--o{ CART_ITEMS : "ON DELETE CASCADE"
+  FRAGRANCES ||--o{ CART_ITEMS : "ON DELETE CASCADE"
+  FRAGRANCES ||--o{ FRAGRANCE_NOTES : "ON DELETE CASCADE"
+
+  USERS {
+    TEXT email PK
+    TEXT password
+    TEXT role "customer | admin"
+    TEXT created_at
+  }
+  FRAGRANCES {
+    TEXT id PK "PF-001"
+    TEXT name
+    TEXT brand
+    INTEGER price_cents
+    TEXT notes
+    REAL rating
+    TEXT image
+    TEXT created_at
+    TEXT updated_at
+  }
+  FRAGRANCE_NOTES {
+    TEXT fragrance_id PK_FK
+    TEXT note PK
+    INTEGER position
+  }
+  CART_ITEMS {
+    TEXT email PK_FK
+    TEXT fragrance_id PK_FK
+    INTEGER qty "CHECK qty > 0"
+    TEXT added_at
+  }
+```
+
+Design points:
+
+- **No orphans.** `ON DELETE CASCADE` means removing a fragrance clears its notes
+  and every cart reference in one statement.
+- **No stale prices.** `cart_items` stores only `fragrance_id` and `qty`; name,
+  brand, and price are read through a `JOIN`, so an admin price change is
+  reflected in every cart immediately.
+- **Queryable ingredients.** `fragrance_notes` is a real child table, so
+  "which fragrances contain oud" is a join rather than Python-side JSON parsing.
+- **Searchable.** An FTS5 index (`fragrances_fts`) is kept in sync by triggers over
+  name, brand, notes, and ingredient text, with a `LIKE` fallback if the SQLite
+  build lacks FTS5.
+- **Never-reused IDs.** A `counters` row is incremented with
+  `UPDATE ... RETURNING` inside the same transaction as the `INSERT`, so IDs are
+  monotonic and gap-free under concurrent admins.
+- **Auditable.** `created_at`, `updated_at`, and `added_at` on every table.
+
+### Migrating an older database
+
+```bash
+cd backend
+python migrate.py
+```
+
+The script is idempotent (re-running is a no-op), runs in a single transaction so
+a failure rolls back cleanly, and writes a `smartperfume.db.pre-migrate` backup
+first. It copies all fragrances, splits the old JSON `ingredients` column into
+`fragrance_notes`, converts `price` to `price_cents`, carries users and carts
+across (dropping and reporting any cart row whose fragrance no longer exists), and
+backfills `notes`/`rating`/`image` from the seed catalogue.
+
+---
+
 ## Environment Notes
 
-- **SQLite database** — All data (fragrances, users, carts) is stored in `backend/smartperfume.db`, a persistent SQLite database created and seeded automatically on first run. The catalog is seeded with the 9 default fragrances if the database is empty.
+- **SQLite database** — All data (fragrances, users, carts) is stored in `backend/smartperfume.db`, created and seeded automatically on first run. The catalog is seeded with the 9 default fragrances if the database is empty.
+- **Schema versioning** — The schema version lives in `PRAGMA user_version`. If you start the server against a v1 database without migrating, the server logs a warning telling you to run `python migrate.py`.
 - **JWT tokens** — Expire after 1 day. Stored in browser `localStorage` via `AuthContext`.
 - **Quiz state** — Tracked via `SurveyContext` and persisted in `localStorage` per user. The quiz must be completed before accessing the Recommendation, Cart, and Collection features.
 - **API proxy** — In development, Vite proxies `/api` requests to `http://localhost:5000`. This is configured in `frontend/vite.config.js`.
 - **CORS** — Flask-CORS is enabled to allow cross-origin requests during development.
 - **Debug mode** — Flask runs with `debug=True` by default. Disable this for production.
-- **Secret key** — The JWT secret key is hardcoded in `app.py`. Change `app.config["SECRET_KEY"]` before deploying to production.
+- **Secret key** — Set `SMARTPERFUME_SECRET_KEY` before deploying; `app.py` falls back to an insecure development key if it is unset.
+- **Admin access** — Admin is a `users` row with `role = 'admin'`, provisioned from `SMARTPERFUME_ADMIN_EMAIL` / `SMARTPERFUME_ADMIN_PASSWORD`. There is no hardcoded admin credential.
+- **Catalog writes require admin** — `POST /api/fragrances`, `PATCH /api/fragrances/<id>`, and `DELETE /api/fragrances/<id>` all reject non-admin tokens with 403.
